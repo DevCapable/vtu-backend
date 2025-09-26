@@ -1,0 +1,41 @@
+"ID","NAME","EDU_LEVEL","EDU_LEVEL_ID"
+110,"GCE","Secondary School Certificate Examination",1001
+111,"NECO","Secondary School Certificate Examination",1001
+112,"NABTEB","Secondary School Certificate Examination",1001
+113,"WAEC","Secondary School Certificate Examination",1001
+249769,"Not Applicable","Secondary School Certificate Examination",1001
+990213,"BEC","Secondary School Certificate Examination",1001
+106,"Distinction","Technical Diploma",1002
+107,"Upper Credit","Technical Diploma",1002
+108,"Lower Credit","Technical Diploma",1002
+109,"Pass","Technical Diploma",1002
+102,"Distinction","Associate's Degree",1003
+103,"Upper Credit","Associate's Degree",1003
+104,"Lower Credit","Associate's Degree",1003
+105,"Pass","Associate's Degree",1003
+1006,"Distinction","Ordinary National Diploma",1004
+98,"Upper Credit","Ordinary National Diploma",1004
+99,"Lower Credit","Ordinary National Diploma",1004
+100,"Pass","Ordinary National Diploma",1004
+990092,"Merit","Ordinary National Diploma",1004
+1007,"Upper Credit","Higher National Diploma",1005
+1008,"Lower Credit","Higher National Diploma",1005
+1001,"Pass","Higher National Diploma",1005
+990133,"Distinction","Higher National Diploma",1005
+1004,"Second Class Upper","Bachelor's Degree",1006
+1003,"Second Class Lower","Bachelor's Degree",1006
+1002,"Third Class","Bachelor's Degree",1006
+92,"Ordinary Degree (PASS)","Bachelor's Degree",1006
+990113,"First Class","Bachelor's Degree",1006
+87,"Honors Degree","Master's Degree",1007
+1005,"Merit","Master's Degree",1007
+121,"Distinction","Master's Degree",1007
+990093,"Pass","Master's Degree",1007
+86,"Distinction","Postgraduate Diploma",1008
+990098,"Merit","Postgraduate Diploma",1008
+990099,"Pass","Postgraduate Diploma",1008
+85,"Honors Degree","Doctorate Degree",1009
+990094,"Low Pass","Nigeria Certificate in Education",1010
+990097,"Pass","Nigeria Certificate in Education",1010
+990095,"Distinction","Nigeria Certificate in Education",1010
+990096,"Merit","Nigeria Certificate in Education",1010

@@ -1,0 +1,794 @@
+"ID","NAME","STATE","STATE_ID"
+355,"Kagarko","KADUNA",19
+356,"Kajuru","KADUNA",19
+357,"Kauru","KADUNA",19
+358,"Koka/Kawo","KADUNA",19
+360,"Kudan","KADUNA",19
+361,"Lere","KADUNA",19
+362,"Makarfi","KADUNA",19
+363,"Sabon-Gari","KADUNA",19
+364,"Sanga","KADUNA",19
+365,"Soba","KADUNA",19
+366,"Tundun-Wada/Makera","KADUNA",19
+367,"Zango-Kataf","KADUNA",19
+368,"Zaria","KADUNA",19
+369,"Ajingi","KANO",20
+370,"Albasu","KANO",20
+371,"Bagwai","KANO",20
+372,"Bebeji","KANO",20
+373,"Bichi","KANO",20
+374,"Bunkure","KANO",20
+375,"Dala","KANO",20
+376,"Dambatta","KANO",20
+377,"Dawakin Kudu","KANO",20
+378,"Dawakin Tofa","KANO",20
+379,"Doguwa","KANO",20
+380,"Fagge","KANO",20
+381,"Gabasawa","KANO",20
+382,"Garko","KANO",20
+383,"Garun Mallam","KANO",20
+384,"Gaya","KANO",20
+385,"Gezawa","KANO",20
+386,"Gwale","KANO",20
+387,"Gwarzo","KANO",20
+388,"Kabo","KANO",20
+389,"Kano Municipal","KANO",20
+390,"Karaye","KANO",20
+391,"Kibiya","KANO",20
+392,"Kiru","KANO",20
+393,"Kumbotso","KANO",20
+394,"Kunchi","KANO",20
+395,"Kura","KANO",20
+396,"Madobi","KANO",20
+397,"Makoda","KANO",20
+398,"Minjibir","KANO",20
+399,"Nasarawa","KANO",20
+400,"Rano","KANO",20
+401,"Rimin Gado","KANO",20
+402,"Rogo","KANO",20
+403,"Shanono","KANO",20
+404,"Sumaila","KANO",20
+405,"Takai","KANO",20
+406,"Tarauni","KANO",20
+407,"Tofa","KANO",20
+408,"Tsanyawa","KANO",20
+409,"Tudun Wada","KANO",20
+410,"Ungogo","KANO",20
+411,"Warawa","KANO",20
+412,"Wudil","KANO",20
+413,"Bakori","KATSINA",21
+414,"Batagarawa","KATSINA",21
+415,"Batsari","KATSINA",21
+416,"Baure","KATSINA",21
+417,"Bindawa","KATSINA",21
+418,"Charanchi","KATSINA",21
+419,"Danja","KATSINA",21
+420,"Dandume","KATSINA",21
+421,"Dan Musa","KATSINA",21
+422,"Daura","KATSINA",21
+423,"Dutsi","KATSINA",21
+424,"Dutsin-Ma","KATSINA",21
+425,"Faskari","KATSINA",21
+426,"Funtua","KATSINA",21
+427,"Ingawa","KATSINA",21
+428,"Jibia","KATSINA",21
+429,"Kafur","KATSINA",21
+430,"Kaita","KATSINA",21
+431,"Kankara","KATSINA",21
+432,"Kankia","KATSINA",21
+433,"Katsina","KATSINA",21
+434,"Kurfi","KATSINA",21
+435,"Kusada","KATSINA",21
+436,"Mai'Adua","KATSINA",21
+437,"Malumfashi","KATSINA",21
+438,"Mani","KATSINA",21
+439,"Mashi","KATSINA",21
+440,"Matazu","KATSINA",21
+441,"Musawa","KATSINA",21
+442,"Rimi","KATSINA",21
+443,"Sabuwa","KATSINA",21
+444,"Safana","KATSINA",21
+445,"Sandamu","KATSINA",21
+446,"Zango","KATSINA",21
+447,"Aleiro","KEBBI",22
+448,"Arewa Dandi","KEBBI",22
+449,"Argungu","KEBBI",22
+450,"Augie","KEBBI",22
+451,"Bagudo","KEBBI",22
+452,"Birnin Kebbi","KEBBI",22
+453,"Bunza","KEBBI",22
+454,"Dandi","KEBBI",22
+455,"Wasagu/Danko","KEBBI",22
+456,"Fakai","KEBBI",22
+457,"Gwandu","KEBBI",22
+458,"Jega","KEBBI",22
+459,"Kalgo","KEBBI",22
+460,"Koko/Besse","KEBBI",22
+461,"Maiyama","KEBBI",22
+462,"Ngaski","KEBBI",22
+463,"Sakaba","KEBBI",22
+464,"Shanga","KEBBI",22
+465,"Suru","KEBBI",22
+466,"Wasagu","KEBBI",22
+467,"Yauri","KEBBI",22
+468,"Zuru","KEBBI",22
+469,"Adavi","KOGI",23
+470,"Ajaokuta","KOGI",23
+471,"Ankpa","KOGI",23
+472,"Bassa","KOGI",23
+473,"Dekina","KOGI",23
+474,"Ibaji","KOGI",23
+475,"Idah","KOGI",23
+476,"Igbalamela-Odolu","KOGI",23
+477,"Ijumu","KOGI",23
+478,"Kabba/Bunu","KOGI",23
+479,"Kogi","KOGI",23
+480,"Lokoja","KOGI",23
+481,"Mopa-Muro","KOGI",23
+482,"Ofu","KOGI",23
+483,"Ogori/Magongo","KOGI",23
+484,"Okehi","KOGI",23
+485,"Okene","KOGI",23
+486,"Olamaboro","KOGI",23
+487,"Omala","KOGI",23
+488,"Oyi","KOGI",23
+489,"Yagba East","KOGI",23
+490,"Yagba West","KOGI",23
+491,"Asa","KWARA",24
+492,"Baruten","KWARA",24
+493,"Edu","KWARA",24
+494,"Ekiti","KWARA",24
+495,"Ifelodun","KWARA",24
+496,"Ilorin East","KWARA",24
+497,"Ilorin South","KWARA",24
+498,"Ilorin West","KWARA",24
+499,"Irepodun","KWARA",24
+500,"Isin","KWARA",24
+501,"Kaiama","KWARA",24
+502,"Moro","KWARA",24
+503,"Offa","KWARA",24
+504,"Oke-Ero","KWARA",24
+505,"Oyun","KWARA",24
+506,"Pategi","KWARA",24
+507,"Agege","LAGOS",25
+508,"Ajeromi-Ifelodun","LAGOS",25
+509,"Alimosho","LAGOS",25
+510,"Amuwo-Odofin","LAGOS",25
+511,"Apapa","LAGOS",25
+512,"Badagry","LAGOS",25
+513,"Epe","LAGOS",25
+514,"Eti-Osa","LAGOS",25
+515,"Ibeju-Lekki","LAGOS",25
+516,"Ifako-Ijaye","LAGOS",25
+517,"Ikeja","LAGOS",25
+518,"Ikorodu","LAGOS",25
+519,"Kosofe","LAGOS",25
+520,"Lagos Island","LAGOS",25
+521,"Lagos Mainland","LAGOS",25
+522,"Mushin","LAGOS",25
+523,"Ojo","LAGOS",25
+524,"Oshodi-Isolo","LAGOS",25
+525,"Shomolu","LAGOS",25
+526,"Surulere","LAGOS",25
+527,"Akwanga","NASARAWA",26
+528,"Awe","NASARAWA",26
+529,"Doma","NASARAWA",26
+530,"Karu","NASARAWA",26
+531,"Keana","NASARAWA",26
+532,"Keffi","NASARAWA",26
+533,"Kokona","NASARAWA",26
+534,"Lafia","NASARAWA",26
+535,"Nasarawa","NASARAWA",26
+536,"Nasarawa Eggon","NASARAWA",26
+537,"Obi","NASARAWA",26
+538,"Toto","NASARAWA",26
+539,"Wamba","NASARAWA",26
+540,"Agaie","NIGER",27
+541,"Agwara","NIGER",27
+542,"Bida","NIGER",27
+543,"Borgu","NIGER",27
+544,"Bosso","NIGER",27
+545,"Chanchaga","NIGER",27
+546,"Edati","NIGER",27
+547,"Gbako","NIGER",27
+548,"Gurara","NIGER",27
+549,"Katcha","NIGER",27
+550,"Kontagora","NIGER",27
+551,"Lapai","NIGER",27
+552,"Lavun","NIGER",27
+553,"Magama","NIGER",27
+554,"Mariga","NIGER",27
+555,"Mashegu","NIGER",27
+556,"Mokwa","NIGER",27
+557,"Munya","NIGER",27
+558,"Paikoro","NIGER",27
+559,"Rafi","NIGER",27
+560,"Rijau","NIGER",27
+561,"Shiroro","NIGER",27
+562,"Suleja","NIGER",27
+563,"Tafa","NIGER",27
+564,"Wushishi","NIGER",27
+565,"Abeokuta North","OGUN",28
+566,"Abeokuta South","OGUN",28
+567,"Ado-Odo/Ota","OGUN",28
+568,"Yewa North","OGUN",28
+569,"Yewa South","OGUN",28
+570,"Ewekoro","OGUN",28
+571,"Idarapo","OGUN",28
+572,"Ifo","OGUN",28
+573,"Ijebu East","OGUN",28
+574,"Ijebu North","OGUN",28
+575,"Ijebu North-East","OGUN",28
+576,"Ijebu Ode","OGUN",28
+577,"Ikenne","OGUN",28
+578,"Alaro","OGUN",28
+579,"Imeko Afon","OGUN",28
+580,"Ipokia","OGUN",28
+581,"Obafemi-Owode","OGUN",28
+582,"Odeda","OGUN",28
+583,"Odogbolu","OGUN",28
+584,"Ogun Waterside","OGUN",28
+585,"Remo North","OGUN",28
+586,"Shagamu","OGUN",28
+587,"Akoko North-East","ONDO",29
+588,"Akoko North-West","ONDO",29
+589,"Akoko South-West","ONDO",29
+590,"Akoko South-East","ONDO",29
+593,"Ese Odo","ONDO",29
+594,"Idanre","ONDO",29
+595,"Ifedore","ONDO",29
+596,"Ilaje","ONDO",29
+597,"Ilaje-West","ONDO",29
+598,"Ile-Oluji/Okeigbo","ONDO",29
+599,"Irele","ONDO",29
+600,"Odigbo","ONDO",29
+601,"Okitipupa","ONDO",29
+602,"Ondo West","ONDO",29
+603,"Ondo East","ONDO",29
+604,"Ose","ONDO",29
+605,"Owo","ONDO",29
+606,"Atakunmosa West","OSUN",30
+607,"Atakunmosa East","OSUN",30
+608,"Ayedaade","OSUN",30
+609,"Ayedire","OSUN",30
+610,"Boluwaduro","OSUN",30
+611,"Boripe","OSUN",30
+612,"Ede South","OSUN",30
+613,"Ede North","OSUN",30
+614,"Egbedore","OSUN",30
+615,"Ejigbo","OSUN",30
+616,"Ife Central","OSUN",30
+617,"Ife East","OSUN",30
+618,"Ife North","OSUN",30
+619,"Ife South","OSUN",30
+620,"Ifedayo","OSUN",30
+621,"Ifelodun","OSUN",30
+622,"Ila","OSUN",30
+623,"Ilesha East","OSUN",30
+624,"Ilesha West","OSUN",30
+625,"Irepodun","OSUN",30
+626,"Irewole","OSUN",30
+627,"Isokan","OSUN",30
+628,"Iwo","OSUN",30
+629,"Obokun","OSUN",30
+630,"Odo-otin","OSUN",30
+631,"Ola Oluwa","OSUN",30
+632,"Olorunda","OSUN",30
+633,"Oriade","OSUN",30
+634,"Orolu","OSUN",30
+635,"Osogbo","OSUN",30
+636,"Afijio","OYO",31
+637,"Akinyele","OYO",31
+638,"Atiba","OYO",31
+639,"Atisbo","OYO",31
+640,"Egbeda","OYO",31
+641,"Ibadan North","OYO",31
+642,"Ibadan North-East","OYO",31
+643,"Ibadan North-West","OYO",31
+644,"Ibadan South-East","OYO",31
+645,"Ibadan South-West","OYO",31
+646,"ibarapa Central","OYO",31
+647,"Ibarapa East","OYO",31
+648,"Ibarapa North","OYO",31
+649,"Ido","OYO",31
+650,"Ifedayo","OYO",31
+651,"Ifeloju","OYO",31
+652,"Irepo","OYO",31
+653,"Iseyin","OYO",31
+654,"Itesiwaju","OYO",31
+655,"Iwajowa","OYO",31
+656,"Kajola","OYO",31
+657,"Lagelu","OYO",31
+658,"Ogo Oluwa","OYO",31
+793,"WARRI SOUTH WEST","DELTA",10
+659,"Ogbomoso North","OYO",31
+660,"Ogbomoso South","OYO",31
+661,"Olorunsogo","OYO",31
+662,"Oluyole","OYO",31
+663,"Ona Ara","OYO",31
+664,"Orelope","OYO",31
+665,"Ori Ire","OYO",31
+666,"Oyo East","OYO",31
+667,"Oyo West","OYO",31
+668,"Saki East","OYO",31
+669,"Saki West","OYO",31
+670,"Surulere","OYO",31
+671,"Barkin Ladi","PLATEAU",32
+672,"Bassa","PLATEAU",32
+673,"Bokkos","PLATEAU",32
+674,"Jos East","PLATEAU",32
+675,"Jos North","PLATEAU",32
+676,"Jos South","PLATEAU",32
+677,"Kanam","PLATEAU",32
+678,"Kanke","PLATEAU",32
+679,"Langtang North","PLATEAU",32
+680,"Langtang South","PLATEAU",32
+681,"Mangu","PLATEAU",32
+682,"Mikang","PLATEAU",32
+683,"Pankshin","PLATEAU",32
+684,"Qua'an Pan","PLATEAU",32
+685,"Riyom","PLATEAU",32
+686,"Shendam","PLATEAU",32
+687,"Wase","PLATEAU",32
+688,"Abua/Odual","RIVERS",33
+689,"Ahoada East","RIVERS",33
+690,"Ahoada West","RIVERS",33
+691,"Akuku Toru","RIVERS",33
+692,"Andoni","RIVERS",33
+693,"Asari-Toru","RIVERS",33
+694,"Bonny","RIVERS",33
+695,"Degema","RIVERS",33
+696,"Eleme","RIVERS",33
+697,"Elfane","RIVERS",33
+698,"Emohua","RIVERS",33
+699,"Etche","RIVERS",33
+700,"Gokana","RIVERS",33
+701,"Ikwerre","RIVERS",33
+702,"Khana","RIVERS",33
+703,"Obio/Akpor","RIVERS",33
+704,"Ogba/Egbema/Ndoni","RIVERS",33
+705,"Ogu/Bolo","RIVERS",33
+706,"Okrika","RIVERS",33
+707,"Omuma","RIVERS",33
+708,"Opobo/Nkoro","RIVERS",33
+709,"Oyigbo","RIVERS",33
+710,"Port Harcourt","RIVERS",33
+711,"Tai","RIVERS",33
+712,"Binji","SOKOTO",34
+713,"Bodinga","SOKOTO",34
+714,"Dange-Shuni","SOKOTO",34
+715,"Gada","SOKOTO",34
+716,"Goronyo","SOKOTO",34
+717,"Gudu","SOKOTO",34
+718,"Gwadabawa","SOKOTO",34
+719,"Illela","SOKOTO",34
+720,"Isa","SOKOTO",34
+721,"Kebbe","SOKOTO",34
+722,"Kware","SOKOTO",34
+723,"Rabah","SOKOTO",34
+724,"Sabon Birni","SOKOTO",34
+725,"Shagari","SOKOTO",34
+727,"Sokoto North","SOKOTO",34
+728,"Sokoto South","SOKOTO",34
+729,"Tambuwal","SOKOTO",34
+730,"Tangaza","SOKOTO",34
+731,"Tureta","SOKOTO",34
+732,"Wamako","SOKOTO",34
+733,"Wurno","SOKOTO",34
+734,"Yabo","SOKOTO",34
+592,"Akure North","ONDO",29
+735,"Ardo-Kola","TARABA",35
+736,"Bali","TARABA",35
+737,"Donga","TARABA",35
+738,"Gashaka","TARABA",35
+739,"Gassol","TARABA",35
+740,"Ibi","TARABA",35
+741,"Jalingo","TARABA",35
+742,"Karim-Lamido","TARABA",35
+743,"Kurmi","TARABA",35
+744,"Lau","TARABA",35
+745,"Sardauna","TARABA",35
+746,"Takum","TARABA",35
+747,"Ussa","TARABA",35
+748,"Wukari","TARABA",35
+749,"Yorro","TARABA",35
+750,"Zing","TARABA",35
+751,"Bade","YOBE",36
+752,"Bursari","YOBE",36
+753,"Damaturu","YOBE",36
+754,"Fika","YOBE",36
+755,"Fune","YOBE",36
+756,"Geidam","YOBE",36
+757,"Gogaram","YOBE",36
+758,"Gujba","YOBE",36
+759,"Gulani","YOBE",36
+760,"Jakusko","YOBE",36
+761,"Karasuwa","YOBE",36
+762,"Machina","YOBE",36
+763,"Nangere","YOBE",36
+764,"Nguru","YOBE",36
+765,"Potiskum","YOBE",36
+766,"Tarmuwa","YOBE",36
+767,"Yunusari","YOBE",36
+768,"Yusufari","YOBE",36
+769,"Anka","ZAMFARA",37
+770,"Bakura","ZAMFARA",37
+771,"Bukkuyum","ZAMFARA",37
+772,"Bungudu","ZAMFARA",37
+773,"Gummi","ZAMFARA",37
+774,"Gusau","ZAMFARA",37
+775,"Isa","ZAMFARA",37
+776,"Kaura Namoda","ZAMFARA",37
+777,"Birnin Magaji/Kiyaw","ZAMFARA",37
+778,"Maradun","ZAMFARA",37
+779,"Maru","ZAMFARA",37
+780,"Shinkafi","ZAMFARA",37
+781,"Talata Mafara","ZAMFARA",37
+782,"Tsafe","ZAMFARA",37
+783,"Zurmi","ZAMFARA",37
+784,"Abaji","FCT",15
+785,"Amac","FCT",15
+786,"Bwari","FCT",15
+787,"Gwagwalada","FCT",15
+788,"Kuje","FCT",15
+789,"Akure North","ONDO",29
+591,"Akure South","ONDO",29
+790,"Kaduna South","KADUNA",19
+791,"Kaura","KADUNA",19
+359,"Kubau","KADUNA",19
+201,"Ndokwa West","DELTA",10
+200,"Ndokwa East","DELTA",10
+1,"Aba North","ABIA",1
+2,"Aba South","ABIA",1
+3,"Arochukwu","ABIA",1
+4,"Bende","ABIA",1
+5,"Ikwuano","ABIA",1
+6,"Isiala-Ngwa North","ABIA",1
+7,"Isiala-Ngwa South","ABIA",1
+8,"Isuikwuato","ABIA",1
+9,"Umu Nneochi","ABIA",1
+10,"Obioma Ngwa","ABIA",1
+11,"Ohafia","ABIA",1
+12,"Osisioma","ABIA",1
+13,"Ugwunagbo","ABIA",1
+14,"Ukwa East","ABIA",1
+15,"Ukwa West","ABIA",1
+16,"Umuahia North","ABIA",1
+17,"Umuahia South","ABIA",1
+18,"Demsa","ADAMAWA",2
+19,"Fufore","ADAMAWA",2
+20,"Ganye","ADAMAWA",2
+21,"Girei","ADAMAWA",2
+22,"Gombi","ADAMAWA",2
+23,"Guyuk","ADAMAWA",2
+24,"Hong","ADAMAWA",2
+25,"Jada","ADAMAWA",2
+26,"Yola South","ADAMAWA",2
+27,"Lamurde","ADAMAWA",2
+28,"Madagali","ADAMAWA",2
+29,"Maiha","ADAMAWA",2
+30,"Mayo-Belwa","ADAMAWA",2
+31,"Michika","ADAMAWA",2
+32,"Mubi North","ADAMAWA",2
+33,"Mubi South","ADAMAWA",2
+34,"Numan","ADAMAWA",2
+35,"Shelleng","ADAMAWA",2
+36,"Song","ADAMAWA",2
+37,"Toungo","ADAMAWA",2
+38,"Yola North","ADAMAWA",2
+39,"Abak","AKWA-IBOM",3
+40,"Eastern Obolo","AKWA-IBOM",3
+41,"Eket","AKWA-IBOM",3
+42,"Nsit Atai","AKWA-IBOM",3
+43,"Essien Udim","AKWA-IBOM",3
+44,"Esit Eket","AKWA-IBOM",3
+45,"Etim Ekpo","AKWA-IBOM",3
+46,"Etinan","AKWA-IBOM",3
+47,"Ibeno","AKWA-IBOM",3
+48,"Ibesikpo Asutan","AKWA-IBOM",3
+49,"Ibiono Ibom","AKWA-IBOM",3
+50,"Ika","AKWA-IBOM",3
+51,"Ikono","AKWA-IBOM",3
+52,"Ikot Abasi","AKWA-IBOM",3
+53,"Ikot Ekpene","AKWA-IBOM",3
+54,"Ini","AKWA-IBOM",3
+55,"Itu","AKWA-IBOM",3
+56,"Mbo","AKWA-IBOM",3
+57,"Mkpat Enin","AKWA-IBOM",3
+58,"Nsit Ibom","AKWA-IBOM",3
+59,"Nsit Ubium","AKWA-IBOM",3
+60,"Obot Akara","AKWA-IBOM",3
+61,"Okobo","AKWA-IBOM",3
+62,"Onna","AKWA-IBOM",3
+63,"Oron","AKWA-IBOM",3
+64,"Oruk Anam","AKWA-IBOM",3
+65,"Udung Uko","AKWA-IBOM",3
+66,"Ukanafun","AKWA-IBOM",3
+67,"Urue-Offong/Oruko","AKWA-IBOM",3
+68,"Uruan","AKWA-IBOM",3
+69,"Uquo Ibeno","AKWA-IBOM",3
+70,"Uyo","AKWA-IBOM",3
+71,"Aguata","ANAMBRA",4
+72,"Anambra East","ANAMBRA",4
+73,"Anambra West","ANAMBRA",4
+74,"Anaocha","ANAMBRA",4
+75,"Awka North","ANAMBRA",4
+76,"Awka South","ANAMBRA",4
+77,"Ayamelum","ANAMBRA",4
+78,"Dunukofia","ANAMBRA",4
+79,"Ekwusigo","ANAMBRA",4
+80,"Idemili North","ANAMBRA",4
+81,"Idemili South","ANAMBRA",4
+82,"Ihiala","ANAMBRA",4
+83,"Njikoka","ANAMBRA",4
+84,"Nnewi North","ANAMBRA",4
+85,"Nnewi South","ANAMBRA",4
+86,"Ogbaru","ANAMBRA",4
+87,"Onitsha North","ANAMBRA",4
+88,"Onitsha South","ANAMBRA",4
+89,"Orumba North","ANAMBRA",4
+90,"Orumba South","ANAMBRA",4
+91,"Oyi","ANAMBRA",4
+92,"Alkaleri","BAUCHI",5
+93,"Bauchi","BAUCHI",5
+94,"Bogoro","BAUCHI",5
+95,"Damban","BAUCHI",5
+96,"Darazo","BAUCHI",5
+97,"Dass","BAUCHI",5
+98,"Gamawa","BAUCHI",5
+99,"Ganjuwa","BAUCHI",5
+100,"Giade","BAUCHI",5
+726,"Silame","SOKOTO",34
+101,"Itas/Gadau","BAUCHI",5
+102,"Jama'are","BAUCHI",5
+103,"Katagum","BAUCHI",5
+104,"Kirfi","BAUCHI",5
+105,"Misau","BAUCHI",5
+106,"Ningi","BAUCHI",5
+107,"Shira","BAUCHI",5
+108,"Tafawa Balewa","BAUCHI",5
+109,"Toro","BAUCHI",5
+110,"Warji","BAUCHI",5
+111,"Zaki","BAUCHI",5
+112,"Brass","BAYELSA",6
+113,"Ekeremor","BAYELSA",6
+114,"Kolokuma/Opokuma","BAYELSA",6
+115,"Nembe","BAYELSA",6
+116,"Ogbia","BAYELSA",6
+117,"Sagbama","BAYELSA",6
+118,"Southern Ijaw","BAYELSA",6
+119,"Yenegoa","BAYELSA",6
+120,"Kembe","BAYELSA",6
+121,"Ado","BENUE STATE",7
+122,"Agatu","BENUE STATE",7
+123,"Apa","BENUE STATE",7
+124,"Buruku","BENUE STATE",7
+125,"Gboko","BENUE STATE",7
+126,"Guma","BENUE STATE",7
+127,"Gwer East","BENUE STATE",7
+128,"Gwer West","BENUE STATE",7
+129,"Katsina-Ala","BENUE STATE",7
+130,"Konshisha","BENUE STATE",7
+131,"Kwande","BENUE STATE",7
+132,"Logo","BENUE STATE",7
+133,"Makurdi","BENUE STATE",7
+134,"Obi","BENUE STATE",7
+135,"Ogbadibo","BENUE STATE",7
+136,"Ohimini","BENUE STATE",7
+137,"Oju","BENUE STATE",7
+138,"Okpokwu","BENUE STATE",7
+139,"Otukpo","BENUE STATE",7
+140,"Tarka","BENUE STATE",7
+141,"Vandeikya","BENUE STATE",7
+142,"Ukum","BENUE STATE",7
+143,"Ushongo","BENUE STATE",7
+144,"Abadam","BORNO",8
+145,"Askira/Uba","BORNO",8
+146,"Bama","BORNO",8
+147,"Bayo","BORNO",8
+148,"Biu","BORNO",8
+149,"Chibok","BORNO",8
+150,"Damboa","BORNO",8
+151,"Dikwa","BORNO",8
+152,"Gubio","BORNO",8
+153,"Guzamala","BORNO",8
+154,"Gwoza","BORNO",8
+155,"Hawul","BORNO",8
+156,"Jere","BORNO",8
+157,"Kaga","BORNO",8
+158,"Kala/Balge","BORNO",8
+159,"Kukawa","BORNO",8
+160,"Konduga","BORNO",8
+161,"Kwaya Kusar","BORNO",8
+162,"Mafa","BORNO",8
+163,"Magumeri","BORNO",8
+164,"Maiduguri","BORNO",8
+165,"Marte","BORNO",8
+166,"Mobbar","BORNO",8
+167,"Monguno","BORNO",8
+168,"Ngala","BORNO",8
+169,"Nganzai","BORNO",8
+170,"Shani","BORNO",8
+171,"Abi","CROSS RIVER",9
+172,"Akamkpa","CROSS RIVER",9
+173,"Akpabuyo","CROSS RIVER",9
+174,"Bakassi","CROSS RIVER",9
+175,"Bekwarra","CROSS RIVER",9
+176,"Biase","CROSS RIVER",9
+177,"Boki","CROSS RIVER",9
+178,"Calabar Municipality","CROSS RIVER",9
+179,"Calabar South","CROSS RIVER",9
+180,"Etung","CROSS RIVER",9
+181,"Ikom","CROSS RIVER",9
+182,"Obanliku","CROSS RIVER",9
+183,"Obubra","CROSS RIVER",9
+184,"Obudu","CROSS RIVER",9
+185,"Odukpani","CROSS RIVER",9
+186,"Ogoja","CROSS RIVER",9
+187,"Ugep-North","CROSS RIVER",9
+188,"Yakurr","CROSS RIVER",9
+189,"Yala","CROSS RIVER",9
+190,"Aniocha North","DELTA",10
+191,"Aniocha South","DELTA",10
+192,"Bomadi","DELTA",10
+193,"Burutu","DELTA",10
+194,"Ethiope East","DELTA",10
+195,"Ethiope West","DELTA",10
+196,"Ika North-East","DELTA",10
+197,"Ika South","DELTA",10
+198,"Isoko North","DELTA",10
+199,"Isoko South","DELTA",10
+202,"Okpe","DELTA",10
+203,"Oshimili North","DELTA",10
+204,"Oshimili South","DELTA",10
+205,"Patani","DELTA",10
+206,"Sapele","DELTA",10
+207,"Udu","DELTA",10
+208,"Ughelli North","DELTA",10
+209,"Ughelli South","DELTA",10
+210,"Ukwuani","DELTA",10
+211,"Uvwie","DELTA",10
+212,"Warri Central","DELTA",10
+213,"Warri North","DELTA",10
+214,"Warri South","DELTA",10
+215,"Abakaliki","EBONYI",11
+216,"Afikpo North","EBONYI",11
+217,"Afikpo South","EBONYI",11
+218,"Ebonyi","EBONYI",11
+219,"Ezza North","EBONYI",11
+220,"Ezza South","EBONYI",11
+221,"Ikwo","EBONYI",11
+222,"Ishielu","EBONYI",11
+223,"Ivo","EBONYI",11
+224,"Izzi","EBONYI",11
+225,"Ohaukwu","EBONYI",11
+226,"Ohaozara","EBONYI",11
+227,"Onicha","EBONYI",11
+228,"Akoko Edo","EDO",12
+229,"Egor","EDO",12
+230,"Esan Central","EDO",12
+231,"Esan North-East","EDO",12
+232,"Esan South-East","EDO",12
+233,"Esan West","EDO",12
+234,"Etsako Central","EDO",12
+235,"Etsako East","EDO",12
+236,"Etsako West","EDO",12
+237,"Igueben","EDO",12
+238,"Ikpoba Okha","EDO",12
+239,"Oredo","EDO",12
+240,"Orhionmwon","EDO",12
+241,"Ovia North-East","EDO",12
+242,"Ovia South-West","EDO",12
+243,"Owan East","EDO",12
+244,"Owan West","EDO",12
+245,"Uhunmwonde","EDO",12
+246,"Ado Ekiti","EKITI",13
+247,"Gbonyin","EKITI",13
+248,"Efon","EKITI",13
+249,"Ekiti East","EKITI",13
+250,"Ekiti South-West","EKITI",13
+251,"Ekiti West","EKITI",13
+252,"Emure","EKITI",13
+253,"Ido-Osi","EKITI",13
+254,"Ijero","EKITI",13
+255,"Ikere","EKITI",13
+256,"Ikole","EKITI",13
+257,"Ilejemeje","EKITI",13
+258,"Irepodun/Ifelodun","EKITI",13
+259,"Ise/Orun","EKITI",13
+260,"Moba","EKITI",13
+261,"Oye","EKITI",13
+262,"Aninri","ENUGU",14
+263,"Awgu","ENUGU",14
+264,"Enugu East","ENUGU",14
+265,"Enugu North","ENUGU",14
+266,"Enugu South","ENUGU",14
+267,"Ezeagu","ENUGU",14
+268,"Igbo-Etiti","ENUGU",14
+269,"Igbo-Eze North","ENUGU",14
+270,"Igbo-Eze South","ENUGU",14
+271,"Isi-Uzo","ENUGU",14
+272,"Nkanu East","ENUGU",14
+273,"Nkanu West","ENUGU",14
+274,"Nsukka","ENUGU",14
+275,"Oji-River","ENUGU",14
+276,"Udenu","ENUGU",14
+277,"Udi","ENUGU",14
+278,"Uzo-Uwani","ENUGU",14
+279,"Akko","GOMBE",16
+280,"Balanga","GOMBE",16
+281,"Billiri","GOMBE",16
+282,"Dukku","GOMBE",16
+283,"Funakaye","GOMBE",16
+284,"Gombe","GOMBE",16
+285,"Kaltungo","GOMBE",16
+286,"Kwami","GOMBE",16
+287,"Nafada/Bajoga","GOMBE",16
+288,"Shongom","GOMBE",16
+289,"Yamaltu/Deba","GOMBE",16
+290,"Aboh Mbaise","IMO",17
+291,"Ahiazu Mbaise","IMO",17
+292,"Ehime Mbano","IMO",17
+293,"Ezinihitte","IMO",17
+294,"Ideato North","IMO",17
+295,"Ideato South","IMO",17
+296,"Ihitte/Uboma","IMO",17
+297,"Ikeduru","IMO",17
+298,"Isiala Mbano","IMO",17
+299,"Isu","IMO",17
+300,"Mbaitoli","IMO",17
+301,"Ngor-Okpala","IMO",17
+302,"Njaba","IMO",17
+303,"Nkwerre","IMO",17
+304,"Nwangele","IMO",17
+305,"Obowo","IMO",17
+306,"Oguta","IMO",17
+307,"Ohaji/Egbema","IMO",17
+308,"Okigwe","IMO",17
+309,"Onuimo","IMO",17
+310,"Orlu","IMO",17
+311,"Orsu","IMO",17
+312,"Oru East","IMO",17
+313,"Oru West","IMO",17
+314,"Owerri Municipal","IMO",17
+315,"Owerri North","IMO",17
+316,"Owerri West","IMO",17
+317,"Auyo","JIGAWA",18
+318,"Babura","JIGAWA",18
+319,"Birnin Kudu","JIGAWA",18
+320,"Birniwa","JIGAWA",18
+321,"Bosuwa","JIGAWA",18
+322,"Buji","JIGAWA",18
+323,"Dutse","JIGAWA",18
+324,"Gagarawa","JIGAWA",18
+325,"Garki","JIGAWA",18
+326,"Gumel","JIGAWA",18
+327,"Guri","JIGAWA",18
+328,"Gwaram","JIGAWA",18
+329,"Gwiwa","JIGAWA",18
+330,"Hadejia","JIGAWA",18
+331,"Jahun","JIGAWA",18
+332,"Kafin Hausa","JIGAWA",18
+333,"Kaugama","JIGAWA",18
+334,"Kazaure","JIGAWA",18
+335,"Kiri Kasama","JIGAWA",18
+336,"Kiyawa","JIGAWA",18
+337,"Maigatari","JIGAWA",18
+338,"Malam Madori","JIGAWA",18
+339,"Miga","JIGAWA",18
+340,"Ringim","JIGAWA",18
+341,"Roni","JIGAWA",18
+342,"Sule-Tankarkar","JIGAWA",18
+343,"Taura","JIGAWA",18
+344,"Yankwashi","JIGAWA",18
+345,"Birnin Gwari","KADUNA",19
+346,"Chikun","KADUNA",19
+347,"Giwa","KADUNA",19
+348,"Gwagwada","KADUNA",19
+349,"Igabi","KADUNA",19
+350,"Ikara","KADUNA",19
+351,"Jaba","KADUNA",19
+352,"Jema'a","KADUNA",19
+353,"Kachia","KADUNA",19
+354,"Kaduna North","KADUNA",19
+1585,"Bida LGA","NIGER",27

@@ -1,0 +1,72 @@
+[
+  {
+    "subject": "NCTRC APPLICATION EXPIRED",
+    "title": "NCTRC APPLICATION EXPIRED",
+    "body": "Dear Sir/Madam,\n\nWe refer to your application for Nigerian Content Trainer’s Registration Certificate (NCTRC), approved on {{approval_date}}.\n\nThis is to notify you that your application {{ applicationCode }} is about to expire. Expiry Date: {{expiry_date}}\n\nPlease ensure to renew your NCTRC Application once it expires.\n\nKindly accept the assurances of the Board's highest regards.\n\nBest Regards, \n\nNCDMB"
+  },
+  {
+    "subject": "NCTRC APPLICATION NEW TASK",
+    "title": "NCTRC APPLICATION NEW TASK",
+    "body": "An NCTRC application is awaiting your review/approval\n\nSee details below\n\nCurrent Task  {{task}}\n\nAssigned to   {{name}}\n\nCompany      {{company}}\n\nApplication Number  {{applicationCode}}\n\nLogin to your NCDMB Account to review/approve the application.\n\nThank You.\n\n\n\n"
+  },
+  {
+    "subject": "NCTRC APPLICATION INSPECTION",
+    "title": "NCTRC APPLICATION INSPECTION COMPANY NOTIFICATION",
+    "body": "Your NCTRC  Application has been scheduled for inspection\n\nSee details below\n\nCompany  {{company}}\n\nApplication Number      {{applicationCode}}\n\nDate of the inspection    {{inspection_date}}\n\nComment to Company    {{inspection_comment}}\n\nThank You."
+  },
+  {
+    "subject": "NCTRC APPLICATION INSPECTION ADMIN NOTIFICATION",
+    "title": "NCTRC APPLICATION INSPECTION",
+    "body": "An NCTRC  Application has been scheduled for inspection\n\nSee details below\n\nCompany  {{company}}\n\nApplication Number      {{applicationCode}}\n\nDate of the inspection    {{inspection_date}}\n\nComment to Company    {{inspection_comment}}\n\nThank You."
+  },
+  {
+    "subject": "NCTRC APPLICATION ES APPROVAL",
+    "title": "NCTRC APPLICATION ES APPROVAL",
+    "body": "An NCTRC application has been approved by Executive Secretary (ES)\n\nSee details below\n\nCompany                        {{company}}\n\nApplication Number     {{applicationCode}}\n\nThank You."
+  },
+  {
+    "subject": "NCTRC APPLICATION RETURNED",
+    "title": "NCTRC APPLICATION RETURNED",
+    "body": "Dear {{company}},\n\nYour NCTRC application ({{applicationCode}}) was returned.\n\nkindly login to your company account to review and resubmit the Application.\n\nReason\n\n{{review}}\n\nContact details:\n\nemail: nctrcapplications@ncdmb.gov.ng"
+  },
+  {
+    "subject": "NCTRC APPLICATION SUBMITTED",
+    "title": "NCTRC APPLICATION SUBMITTED COMPANY NOTIFICATION",
+    "body": "Dear Sir/Madam,\n\n \n\nWe refer to your application for the Nigerian Content Trainer’s Registration Certificate  (NCTRC), submitted on {{submissionDate}} in Area of Specialization {{aos}}. This is to notify you that your application {{ applicationCode }} is being processed.\n\nThis letter is a proof that {{ company }} has applied for a Nigerian Content Trainer’s Registration Certificate, which is currently being processed by the Nigerian Content Development and Monitoring Board (NCDMB).\n\nKindly accept the assurances of the Board's highest regards.\n\nBest Regards,\n\nNCDMB\n\n\n\n"
+  },
+  {
+    "subject": "NCTRC APPLICATION SUBMITTED",
+    "title": "NCTRC APPLICATION SUBMITTED ADMIN NOTIFICATION",
+    "body": "An NCTRC Application has just been submitted.\n\nSee details below\n\nCompany{{company}}\n\nApplication Number{{applicationCode}}\n\nThank You."
+  },
+  {
+    "subject": "NCTRC APPLICATION APPROVED",
+    "title": "NCTRC APPLICATION APPROVED",
+    "body": "Your Nigerian Content Trainers Registration Application ({{applicationCode}}) has been approved\n\nLogin to your company account to view the approved application\n\nThank You."
+  },
+  {
+    "subject": "Welcome to NOGIC JQS Portal",
+    "title": "Individual Welcome Message",
+    "body": "Dear {{first_name}} {{last_name}},\n\n\nWelcome to the NOGIC JQS (Nigerian Oil and Gas Industry Content Joint Qualification System) Portal \nOn successful login to your portal account, you MUST update your profile information. This would ensure that your exact profile details are available at NCDMB (Nigerian Content Development & Monitoring Board) for full evaluation and proper consideration.\nThe following steps enumerate how you can easily do this:\nStep 1: Log in using your username (email) and portal password.\nStep 2: Upon Successful Login, Update your bio-data, Educational Qualification,Industry Certification,Job Experience,Skill, Training.\nStep 3: Upload copies of all claimed certificates.\nThank You.\n"
+  },
+  {
+    "subject": "Welcome to NOGIC JQS Portal",
+    "title": "Service Company Welcome Message",
+    "body": "Dear {{first_name}} {{last_name}},\n\n\nWelcome to the NOGIC JQS (Nigerian Oil and Gas Industry Content Joint Qualification System) Portal \nOn successful login to your portal account, you MUST update your profile information. This would ensure that your exact profile details are available at NCDMB (Nigerian Content Development & Monitoring Board) for full evaluation and proper consideration.\nThank You.\n"
+  },
+  {
+    "subject": "Welcome to NOGIC JQS Portal",
+    "title": "Operator Welcome Message",
+    "body": "Dear {{first_name}} {{last_name}},\n\n\nWelcome to the NOGIC JQS (Nigerian Oil and Gas Industry Content Joint Qualification System) Portal \nOn successful login to your portal account, you MUST update your profile information. This would ensure that your exact profile details are available at NCDMB (Nigerian Content Development & Monitoring Board) for full evaluation and proper consideration.\nThank You.\n"
+  },
+  {
+    "subject": "Welcome to NOGIC JQS Portal",
+    "title": "NCDMB User Welcome Message",
+    "body": "Dear {{first_name}} {{last_name}},\n\n\nWelcome to the NOGIC JQS (Nigerian Oil and Gas Industry Content Joint Qualification System) Portal \nOn successful login to your portal account, you MUST update your profile information. This would ensure that your exact profile details are available at NCDMB (Nigerian Content Development & Monitoring Board) for full evaluation and proper consideration.\nThank You.\n"
+  },
+  {
+    "subject": "Email Verification",
+    "title": "Verify your Email",
+    "body": "Welcome to the NOGIC JQS (Nigerian Oil and Gas Industry Content Joint Qualification System) Portal {{first_name}} {{last_name}}\nYou have been successfully signed up on the NOGIC JQS Portal, you need to activate your account before logging into the portal to complete your details\nTo activate your account,<a href = '{{verificationLink}}'>click here</a>\nOr point your browser to this address\n{{verificationLink}}\nYour Portal Account Detail\nEmail Address: {{email }}\n{{#if password}}\nPassword: {{password }}{{/if}}\nThank You."
+  }
+]

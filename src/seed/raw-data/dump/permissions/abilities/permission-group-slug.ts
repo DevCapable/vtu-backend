@@ -1,0 +1,4 @@
+export enum Slug {
+  MARINE_VESSEL = 'MARINE_VESSEL',
+  USER_MANAGEMENT = 'USER_MANAGEMENT',
+}

@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "name": "Super Admin",
+    "description": "The Super Admin role retains its high-level privileges for system management and configuration. This role is typically assigned to the application's superusers or administrators",
+    "slug": "super-admin"
+  },
+  {
+    "name": "Super Admin NCDF",
+    "description": "The NCDF Super Admin role retains its high-level privileges for ncdf management and configuration.",
+    "slug": "ncdf-super-admin",
+    "origin": "NCDF",
+    "special": 1
+  },
+  {
+    "name": "NcdNCDFf Access",
+    "description": "The NCDF accessn role determines who access ncdf portal",
+    "slug": "ncdf-access",
+    "origin": "NCDF",
+    "special": 1
+  },
+  {
+    "name": "Super Admin E-Market",
+    "description": "The E-Market Super Admin role retains its high-level privileges for e-market management and configuration.",
+    "slug": "e-market-super-admin",
+    "origin": "E_MARKET",
+    "special": 1
+  },
+  {
+    "name": "E-Market Access",
+    "description": "The E-Market accessn role determines who access e-market portal",
+    "slug": "e-market-access",
+    "origin": "E_MARKET",
+    "special": 1
+  }
+]

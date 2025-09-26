@@ -1,0 +1,13 @@
+export enum StaffStrength {
+  ZERO = 'ZERO',
+  ZERO_TEN = 'ZERO_TEN',
+  ONE_TEN = 'ONE_TEN',
+  TEN_FIFTY = 'TEN_FIFTY',
+  FIFTY_HUNDRED = 'FIFTY_HUNDRED',
+  ABOVE_HUNDRED = 'ABOVE_HUNDRED',
+}
+
+export enum NseStatus {
+  NOT_AVAILABLE = 'NOT_AVAILABLE',
+  REGISTERED = 'REGISTERED',
+}

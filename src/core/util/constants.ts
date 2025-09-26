@@ -1,0 +1,1 @@
+export const FILEABLE_TYPE = 'PROFILE-PICTURE';
