@@ -1,4 +1,4 @@
-import { DeepPartial } from 'typeorm';
+import { DeepPartial, ObjectLiteral } from 'typeorm';
 import { BaseRepository } from './base.repository';
 import { DocumentType } from '@app/document/enum/document.enum';
 import { FilterOptions, PaginationOptions } from '@app/core/interface';
@@ -8,7 +8,7 @@ import { ClsServiceManager } from 'nestjs-cls';
 import { CustomUnauthorizedException } from '../error';
 import { Request } from 'express';
 
-export abstract class BaseService<T> {
+export abstract class BaseService<T extends ObjectLiteral> {
   documentType: DocumentType;
   documentFileType: string;
 
@@ -34,7 +34,7 @@ export abstract class BaseService<T> {
       ? xForwardedFor[0]
       : xForwardedFor?.split(',')[0];
 
-    const ipAddress = ipFromForwarded || request.ip;
+    const ipAddress: any = ipFromForwarded || request.ip;
 
     return ipAddress;
   }
@@ -53,7 +53,7 @@ export abstract class BaseService<T> {
     return { data, totalCount };
   }
 
-  async findOne(id: number, relations = []): Promise<T> {
+  async findOne(id: number, relations = []): Promise<T | null> {
     return this.baseRepository.findById(id, relations);
   }
 
@@ -61,7 +61,7 @@ export abstract class BaseService<T> {
     return this.baseRepository.create({ ...entity, uuid: uuidv4() });
   }
 
-  update(id, entity: T): Promise<T> {
+  update(id, entity: T): Promise<T | null> {
     return this.baseRepository.update(id, entity);
   }
 

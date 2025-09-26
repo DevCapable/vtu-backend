@@ -7,9 +7,10 @@ import { buildRelations, buildSearchQueryBuilder } from '@app/core/util';
 import { AccountTypeEnum } from '@app/account/enums';
 import { Permission } from '@app/permission/entities/permission.entity';
 import { RolesEnum } from './enums';
-import { LoggerService } from '@app/logger';
-import { User } from '@app/user/entities/user.entity';
+// import { LoggerService } from '@app/logger';
+// import { User } from '@app/user/entities/user.entity';
 import { CurrentUserData } from '@app/iam/interfaces';
+import { User } from '@app/users/entities/user.entity';
 
 @Injectable()
 export class RoleRepository extends BaseRepository<Role> {
@@ -32,7 +33,7 @@ export class RoleRepository extends BaseRepository<Role> {
     @InjectRepository(Role)
     private readonly roleRepository: Repository<Role>,
     private readonly entityManager: EntityManager,
-    private readonly loggerService: LoggerService,
+    // private readonly loggerService: LoggerService,
   ) {
     super(roleRepository);
   }
@@ -42,7 +43,7 @@ export class RoleRepository extends BaseRepository<Role> {
     return this.roleRepository.save(newEntity);
   }
 
-  async update(id: number, data: DeepPartial<Role>): Promise<Role> {
+  async update(id: number, data: DeepPartial<Role>): Promise<Role | null> {
     const entity = await this._prepareEntity(data, id);
 
     await this.roleRepository.save(entity);
@@ -50,7 +51,7 @@ export class RoleRepository extends BaseRepository<Role> {
     return this.findOne(id);
   }
 
-  async _prepareEntity(data: any, id = null) {
+  async _prepareEntity(data: any, id: number | null = null) {
     let permissions: Permission[] = [];
 
     if (data.permissions) {
@@ -58,11 +59,17 @@ export class RoleRepository extends BaseRepository<Role> {
         id: In(data.permissions),
       });
     }
-    return this.roleRepository.create({
+
+    const payload: any = {
       ...data,
-      ...(id && { id }),
-      ...(permissions.length && { permissions }),
-    });
+      ...(permissions.length ? { permissions } : {}),
+    };
+
+    if (id) {
+      payload.id = id;
+    }
+
+    return this.roleRepository.create(payload);
   }
 
   async findAll(
@@ -72,7 +79,7 @@ export class RoleRepository extends BaseRepository<Role> {
       [key: string]: any;
     } = {},
     paginationOptions: { skip?: number; limit?: number } = {},
-    user = null,
+    user: any = null,
     relations: string[] = [],
   ): Promise<[Role[], number]> {
     const { sortKey, sortDir, ...searchOptions } = filterOptions;
@@ -92,7 +99,7 @@ export class RoleRepository extends BaseRepository<Role> {
 
     queryBuilder.loadRelationCountAndMap('entity.userCount', 'entity.users');
 
-    if (user?.account?.type !== AccountTypeEnum.AGENCY) {
+    if (user?.account?.type !== AccountTypeEnum.ADMIN) {
       queryBuilder.orWhere('entity.slug = :slug', {
         slug: RolesEnum.SUPER_ADMIN,
       });
@@ -100,8 +107,9 @@ export class RoleRepository extends BaseRepository<Role> {
 
     const [entities, totalCount] = await queryBuilder.getManyAndCount();
 
-    const transformedEntities = (await Promise.all(
+    const transformedEntities = await Promise.all(
       entities.map(async (entity) => {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-enum-comparison
         if (entity.slug == RolesEnum.SUPER_ADMIN) {
           const superAdminUserCount = await this.getSuperAdminUserCount(user);
           return {
@@ -112,7 +120,7 @@ export class RoleRepository extends BaseRepository<Role> {
 
         return entity;
       }),
-    )) as Role[];
+    );
 
     return [transformedEntities, totalCount];
   }
@@ -194,7 +202,7 @@ export class RoleRepository extends BaseRepository<Role> {
 
       return [entities, totalCount];
     } catch (error) {
-      this.loggerService.error('Error executing SQL query:', error);
+      // this.loggerService.error('Error executing SQL query:', error);
       throw error;
     }
   }
@@ -209,7 +217,6 @@ export class RoleRepository extends BaseRepository<Role> {
     roleId: number,
     currentUser: CurrentUserData,
   ): Promise<[User[], number]> {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { sortKey, sortDir } = filterOptions;
     const { skip, limit } = paginationOptions;
 
@@ -219,13 +226,13 @@ export class RoleRepository extends BaseRepository<Role> {
       .leftJoinAndSelect('entity.roles', 'role')
       .where('role.id = :roleId', { roleId });
 
-    if (currentUser?.account?.type === AccountTypeEnum.AGENCY) {
+    if (currentUser?.account?.type === AccountTypeEnum.ADMIN) {
       queryBuilder.innerJoin(
         'entity.accounts',
         'account',
         'account.type = :accountType',
         {
-          accountType: 'AGENCY',
+          accountType: 'ADMIN',
         },
       );
     } else {
@@ -257,14 +264,14 @@ export class RoleRepository extends BaseRepository<Role> {
         accountId: user?.account?.id,
       });
 
-    if (user?.account?.type === AccountTypeEnum.AGENCY) {
+    if (user?.account?.type === AccountTypeEnum.ADMIN) {
       queryConditionFn = (qb) =>
         qb.innerJoin(
           'users.accounts',
           'account',
           'account.type = :accountType',
           {
-            accountType: AccountTypeEnum.AGENCY,
+            accountType: AccountTypeEnum.ADMIN,
           },
         );
     }
@@ -280,6 +287,7 @@ export class RoleRepository extends BaseRepository<Role> {
       .where({ slug: RolesEnum.SUPER_ADMIN })
       .getOne();
 
-    return role.userCount || 0;
+    if (role) return role.userCount;
+    return 0;
   }
 }

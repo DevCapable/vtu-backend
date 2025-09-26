@@ -11,12 +11,12 @@ import {
   CustomBadRequestException,
   CustomInternalServerException,
 } from '../error';
-import { LoggerService } from '@app/logger';
+// import { LoggerService } from '@app/logger';
 import { StringHelper } from '../helpers';
 
 const asyncRandomBytes = promisify(randomBytes);
 
-let loggerService: LoggerService;
+// let loggerService: LoggerService;
 export const generateRandomCode = (length) => {
   let result = '';
   const characters =
@@ -197,9 +197,9 @@ export const generatePdf = async (data: any) => {
       name: pdfName,
     };
   } catch (error) {
-    loggerService.error('error', error);
+    // loggerService.error('error', error);
     throw new CustomInternalServerException(
-      'Error generating or saving the PDF.',
+      `Error generating or saving the PDF.${error}`,
     );
   }
 };

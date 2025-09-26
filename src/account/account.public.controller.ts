@@ -40,16 +40,16 @@ export class AccountPublicController {
     return await this.accountService.findAll(filterOptions, paginationOptions);
   }
 
-  @ApiEndpoint('find or create an account')
-  @Post('/find-create-account')
-  async matchOrCreateCompany(@Body() payload: IVendor[], @Req() req) {
-    const originApp = req.get('X-Origin-Application');
-    const externalOrigin = ExternalLinkOriginEnum[originApp];
-    return await this.accountService.matchOrCreateCompany(
-      payload,
-      externalOrigin,
-    );
-  }
+  // @ApiEndpoint('find or create an account')
+  // @Post('/find-create-account')
+  // async matchOrCreateCompany(@Body() payload: IVendor[], @Req() req) {
+  //   const originApp = req.get('X-Origin-Application');
+  //   const externalOrigin = ExternalLinkOriginEnum[originApp];
+  //   return await this.accountService.matchOrCreateCompany(
+  //     payload,
+  //     externalOrigin,
+  //   );
+  // }
   @ApiEndpoint('Get One Account by ID')
   @Get(':id')
   async findOne(@Param('id') id: number) {

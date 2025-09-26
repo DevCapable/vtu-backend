@@ -5,12 +5,9 @@ import { Document } from '@app/document/entities/document.entity';
 import { Repository } from 'typeorm';
 
 import { Promise as Bluebird } from 'bluebird';
-import { DocumentDomain, DocumentFormat } from '@app/document/types';
-import { nctrcDocumentsDbSeed } from '@app/nctrc/seeds/nctrc-documents.db.seed';
+import { DocumentFormat } from '@app/document/types';
 import { v4 as uuidv4 } from 'uuid';
-import { advertDocumentsDbSeed } from '@app/advert/seeds/advert-documents.db.seed';
 import { StringHelper } from '@app/core/helpers';
-import { ncdfDocumentsSeed } from '@app/ncdf/seeds/ncdf-certificate-documents.seed';
 
 @Injectable()
 export class DocumentSeeder implements SeederInterface {
@@ -21,9 +18,9 @@ export class DocumentSeeder implements SeederInterface {
 
   seed() {
     const documents = [
-      ...nctrcDocumentsDbSeed,
-      ...advertDocumentsDbSeed,
-      ...ncdfDocumentsSeed,
+      // ...nctrcDocumentsDbSeed,
+      // ...advertDocumentsDbSeed,
+      // ...ncdfDocumentsSeed,
       /*...ncecDocumentsSeed,
       ...exchangeProgramDocumentsDbSeed,
       ...ownershipDocumentsSeed,
@@ -57,7 +54,6 @@ export class DocumentSeeder implements SeederInterface {
         slug: data.slug,
         name: data.name,
         type: data.type,
-        domain: data.domain ? data.domain : DocumentDomain.NOGIC,
         description: data.description,
         allowedFormats: StringHelper.stringify(allowedFormats),
         ...(data.isRequired && {

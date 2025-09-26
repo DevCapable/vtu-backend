@@ -2,7 +2,7 @@ import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 import { Request } from 'express';
 
 export const GetPagination = createParamDecorator(
-  (data, ctx: ExecutionContext) => {
+  (data: unknown, ctx: ExecutionContext) => {
     const req: Request = ctx.switchToHttp().getRequest();
     const paginationParams = {
       limit: Number(req.query.limit) || 10,
@@ -14,12 +14,11 @@ export const GetPagination = createParamDecorator(
       url: req.originalUrl,
     };
 
-    let limit = paginationParams.limit ? paginationParams.limit : 0;
-    let skip = paginationParams.limit
-      ? paginationParams.page
-        ? (paginationParams.page - 1) * paginationParams.limit
-        : 0
+    let limit = paginationParams.limit || 0;
+    let skip = paginationParams.page
+      ? (paginationParams.page - 1) * paginationParams.limit
       : 0;
+
     const sortBy = paginationParams.sort_by
       ? paginationParams.sort_by.toString().split('.')
       : [];
@@ -30,6 +29,7 @@ export const GetPagination = createParamDecorator(
         limit = tmp;
       }
     }
+
     if (req.query.skip) {
       const tmp = Number(req.query.skip);
       if (!Number.isNaN(tmp) && tmp > 0) {
@@ -55,8 +55,9 @@ export const GetPagination = createParamDecorator(
       skip,
       key,
       dir,
-      limit,
+      // don’t put `limit` twice
       ...paginationParams,
+      limit,
     };
   },
 );

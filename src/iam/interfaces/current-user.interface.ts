@@ -1,11 +1,11 @@
 import { Account } from '@app/account/entities/account.entity';
 import { AccountTypeEnum } from '@app/account/enums';
-import { User } from '@app/user/entities/user.entity';
+import { User } from '@app/users/entities/user.entity';
 
 export type JwtPayload = {
   currentAccountId: number;
   currentAccountType: string;
-  currentAccountAgencyPosition: string;
+  // currentAccountAgencyPosition: string;
   email: string;
   session?: string;
 };

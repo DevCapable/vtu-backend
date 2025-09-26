@@ -17,12 +17,12 @@ export function AccountAccessInterceptor(accountIdField: string = 'accountId') {
   class MixinAccountAccessInterceptor implements NestInterceptor {
     intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
       const request = context.switchToHttp().getRequest();
-      const user: CurrentUserData | undefined = request[REQUEST_USER_KEY];
+      const user: CurrentUserData | undefined | any = request[REQUEST_USER_KEY];
 
       if (!user) return next.handle();
       const accountId = user.account.id;
 
-      if (user.account?.type === AccountTypeEnum.AGENCY) {
+      if (user.account?.type === AccountTypeEnum.ADMIN) {
         return next.handle();
       }
 

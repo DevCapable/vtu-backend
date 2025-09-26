@@ -1,23 +1,18 @@
 import { BaseEntity } from '@app/core/base/base.entity';
-import { ExternalLinkOriginEnum } from '@app/iam/enum';
-import { User } from '@app/user/entities/user.entity';
 import { Column, Entity, JoinTable, ManyToMany, OneToOne } from 'typeorm';
 import { AccountTypeEnum } from '../enums';
-import { Agency } from './agency.entity';
-import { CommunityVendor } from './community-vendor.entity';
-import { Company } from './company.entity';
-import { Individual } from './individual.entity';
-import { Operator } from './operator.entity';
+import { Admin } from './admin.entity';
+import { Customer } from './customer.entity';
+import { User } from '@app/users/entities/user.entity';
 
 @Entity()
 export class Account extends BaseEntity<Account> {
   @Column({
-    type: 'varchar',
     length: 50,
   })
   type: AccountTypeEnum;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ length: 255, nullable: true })
   bio?: string;
 
   @Column({
@@ -31,33 +26,19 @@ export class Account extends BaseEntity<Account> {
   @Column({ default: true })
   active: boolean;
 
-  @Column({
-    type: 'varchar2',
-    enum: ExternalLinkOriginEnum,
-    default: ExternalLinkOriginEnum.NOGIC,
-  })
-  origin: ExternalLinkOriginEnum;
+  // @Column({
+  //   enum: ExternalLinkOriginEnum,
+  //   default: ExternalLinkOriginEnum.NOGIC,
+  // })
+  // origin: ExternalLinkOriginEnum;
 
-  @OneToOne(() => Individual, (individual) => individual.account, {
+  @OneToOne(() => Customer, (customer) => customer.account, {
     cascade: true,
   })
-  individual: Individual;
+  customer: Customer;
 
-  @OneToOne(() => Agency, (agency) => agency.account, { cascade: true })
-  agency: Agency;
-
-  @OneToOne(() => Company, (company) => company.account, { cascade: true })
-  company: Company;
-
-  @OneToOne(() => Operator, (operator) => operator.account, { cascade: true })
-  operator: Operator;
-
-  @OneToOne(
-    () => CommunityVendor,
-    (communityVendor) => communityVendor.account,
-    { cascade: true },
-  )
-  communityVendor: CommunityVendor;
+  @OneToOne(() => Admin, (admin) => admin.account, { cascade: true })
+  admin: Admin;
 
   @ManyToMany(() => User, (user) => user.accounts, { cascade: true })
   @JoinTable({

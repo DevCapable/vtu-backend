@@ -1,4 +1,4 @@
-const { NODE_ENV, SERVER_MODE } = process.env;
+const { NODE_ENV = 'development', SERVER_MODE } = process.env; // Default to 'development'
 
 const DEVELOPMENT_ENVS = ['dev', 'development', 'local'];
 const TEST_ENVS = ['jest', 'e2e', 'test'];
@@ -19,7 +19,7 @@ export default () => ({
   },
 
   // PORT CONFIG
-  port: parseInt(process.env.APP_PORT, 10) || 3000,
+  port: parseInt(process.env.APP_PORT || '4000', 10), // Handle undefined safely
 
   // REMITA CONFIG
   remita_url: process.env.REMITA_URL,

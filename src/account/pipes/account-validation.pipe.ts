@@ -1,9 +1,9 @@
 import { forwardRef, Inject, mixin, PipeTransform } from '@nestjs/common';
 import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
+import { validate, ValidationError } from 'class-validator';
+import memoize from 'lodash.memoize';
 import { accountTypeMapping } from '../account-type.mapping';
 import { AccountRepository } from '../account.repository';
-import { memoize } from '@nestjs/passport/dist/utils/memoize.util';
 import { AccountTypeEnum } from '../enums';
 import { CustomValidationException } from '@app/core/error';
 
@@ -17,52 +17,88 @@ export const AccountValidationPipe: (
 ) => PipeTransform = memoize(createAccountValidationPipe);
 
 function createAccountValidationPipe(handlerAction: HandlerAction) {
-  handlerAction = !handlerAction ? HandlerAction.CREATE : handlerAction;
+  handlerAction = handlerAction ?? HandlerAction.CREATE;
+
   class MixinAccountValidationPipe implements PipeTransform<any> {
     constructor(
       @Inject(forwardRef(() => AccountRepository))
-      private accountRepository: AccountRepository,
+      private readonly accountRepository: AccountRepository,
     ) {}
+
     async transform(value: any) {
       let dto;
-      let accountType;
+      let accountType: AccountTypeEnum;
+
       if (handlerAction === HandlerAction.CREATE) {
         accountType = value.accountType as AccountTypeEnum;
+
         if (!accountType) {
           throw new CustomValidationException({
-            accountType: 'Account type is required',
+            accountType: ['Account type is required'],
           });
         }
+
         if (!Object.values(AccountTypeEnum).includes(accountType)) {
           throw new CustomValidationException({
-            accountType: `Account type can only be one of ${Object.values(
-              AccountTypeEnum,
-            ).join(', ')}`,
+            accountType: [
+              `Account type can only be one of ${Object.values(
+                AccountTypeEnum,
+              ).join(', ')}`,
+            ],
           });
         }
+
         dto = accountTypeMapping[accountType].createDto;
       } else {
         const accountId = value.id;
         if (!accountId) {
           throw new CustomValidationException({
-            accountType: 'Account ID is required',
+            accountId: ['Account ID is required'],
           });
         }
-        const { type } = await this.accountRepository.findById(+accountId);
-        accountType = type;
+
+        const account = await this.accountRepository.findById(+accountId);
+        if (!account) {
+          throw new CustomValidationException({
+            accountId: ['Account not found'],
+          });
+        }
+
+        accountType = account.type;
         dto = accountTypeMapping[accountType].updateDto;
       }
+
       const object = plainToInstance(dto, value);
-      const errors = await validate(object);
+      const errors = await validate(object, { whitelist: true });
+
       if (errors.length > 0) {
-        const errMsg = {};
-        errors.forEach((err) => {
-          errMsg[err.property] = [...Object.values(err.constraints)];
-        });
-        throw new CustomValidationException(errMsg);
+        throw new CustomValidationException(this.formatErrors(errors));
       }
+
       return { ...value, accountType };
     }
+
+    private formatErrors(errors: ValidationError[]): Record<string, string[]> {
+      const result: Record<string, string[]> = {};
+
+      const flatten = (errs: ValidationError[], parent?: string) => {
+        for (const err of errs) {
+          const property = parent ? `${parent}.${err.property}` : err.property;
+
+          if (err.constraints) {
+            result[property] = Object.values(err.constraints);
+          }
+
+          if (err.children?.length) {
+            flatten(err.children, property);
+          }
+        }
+      };
+
+      flatten(errors);
+      return result;
+    }
   }
+
   return mixin(MixinAccountValidationPipe);
 }

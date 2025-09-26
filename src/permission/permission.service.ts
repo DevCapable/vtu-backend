@@ -9,9 +9,6 @@ export class PermissionService {
 
   async findAll(pagination, paginationOptions, user) {
     let permissionGroup;
-    if (user.account.type === AccountTypeEnum.OPERATOR) {
-      permissionGroup = [GROUPTYPE.MARINE_VESSEL];
-    }
     const [data, totalCount] = await this.permissionRepository.findAll(
       pagination,
       paginationOptions,

@@ -63,7 +63,7 @@ const CustomInternalServerException = customExceptionFactory(
 );
 
 class CustomValidationException extends HttpException {
-  constructor(errors?: Record<string, string>) {
+  constructor(errors?: Record<string, string[]>) {
     super(
       {
         message: ErrorMessageEnum.ValidationDefault,

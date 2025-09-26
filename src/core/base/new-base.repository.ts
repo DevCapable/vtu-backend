@@ -1,7 +1,7 @@
-import { In, Repository } from 'typeorm';
+import { In, ObjectLiteral, Repository } from 'typeorm';
 import { buildFillable, buildRelationsObj, newbuildSearchQuery } from '../util';
 
-export abstract class BaseRepository<T> {
+export abstract class BaseRepository<T extends ObjectLiteral> {
   public fillable: string[] = [];
   public searchable: string[] = [];
   public relations: string[] = [];
@@ -139,7 +139,7 @@ export abstract class BaseRepository<T> {
     return this.repository.find(options);
   }
 
-  async update(id: number, data: any): Promise<T> {
+  async update(id: number, data: any): Promise<T | null> {
     const payload = buildFillable(data, this.fillable);
     await this.repository.update(id, payload);
     return this.findFirst(id);

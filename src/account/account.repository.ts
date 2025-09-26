@@ -4,11 +4,11 @@ import {
   CustomNotFoundException,
 } from '@app/core/error';
 import { StringHelper } from '@app/core/helpers';
-import { LoggerService } from '@app/logger';
-import { ShareholderRepository } from '@app/shareholder/shareholder.repository';
+// import { LoggerService } from '@app/logger';
+// import { ShareholderRepository } from '@app/shareholder/shareholder.repository';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Brackets, EntityManager, Like, Repository } from 'typeorm';
+import { Brackets, EntityManager, Repository } from 'typeorm';
 import { camelCase } from 'typeorm/util/StringUtils';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -16,16 +16,12 @@ import {
   buildRelationsObj,
   buildSearchQueryBuilder,
   generateCryptoString,
-  generateRandomCode,
   pick,
 } from '../core/util';
 import { accountTypeMapping } from './account-type.mapping';
 import { Account } from './entities/account.entity';
-import { Agency } from './entities/agency.entity';
-import { CommunityVendor } from './entities/community-vendor.entity';
-import { Company } from './entities/company.entity';
-import { Individual } from './entities/individual.entity';
-import { Operator } from './entities/operator.entity';
+import { Admin } from './entities/admin.entity';
+import { Customer } from './entities/customer.entity';
 import { AccountTypeEnum } from './enums';
 import { generateCompetency } from './utils';
 
@@ -36,18 +32,12 @@ export class AccountRepository extends BaseRepository<Account> {
   constructor(
     @InjectRepository(Account)
     private readonly accountRepository: Repository<Account>,
-    @InjectRepository(Individual)
-    private readonly individualRepository: Repository<Individual>,
-    @InjectRepository(Company)
-    private readonly companyRepository: Repository<Company>,
-    @InjectRepository(Operator)
-    private readonly operatorRepository: Repository<Operator>,
-    @InjectRepository(Agency)
-    private readonly agencyRepository: Repository<Agency>,
-    @InjectRepository(CommunityVendor)
-    private readonly communityVendorRepository: Repository<CommunityVendor>,
-    private readonly shareholderRepository: ShareholderRepository,
-    private readonly loggerService: LoggerService,
+    @InjectRepository(Customer)
+    private readonly individualRepository: Repository<Customer>,
+    @InjectRepository(Admin)
+    private readonly agencyRepository: Repository<Admin>,
+
+    // private readonly loggerService: LoggerService,
   ) {
     super(accountRepository);
   }
@@ -62,166 +52,51 @@ export class AccountRepository extends BaseRepository<Account> {
     };
 
     let account;
-    const year = new Date().getFullYear().toString().slice(-2);
-
-    switch (data.accountType) {
-      case AccountTypeEnum.INDIVIDUAL:
-        account = await entityManager.save(Account, {
-          ...userData,
-          uuid: uuidv4(),
-        });
-        const currentYear = new Date().getFullYear();
-        const competencyId = generateCompetency(userData.gender, currentYear);
-        await entityManager.save(
-          Individual,
-          buildFillable(
-            {
-              ...userData,
-              accountId: account.id,
-              uuid: uuidv4(),
-              competencyId,
-            },
-            accountTypeMapping.INDIVIDUAL.fillable,
-          ),
-        );
-        break;
-      case AccountTypeEnum.COMPANY:
-        const totalCompanies = await entityManager.count(Account, {
-          where: { type: AccountTypeEnum.COMPANY, nogicNumber: Like('201/%') },
-        });
-
-        account = await entityManager.save(Account, {
-          ...userData,
-          uuid: uuidv4(),
-          nogicNumber: `201/${year}/${totalCompanies + 1}`,
-        });
-
-        await entityManager.save(
-          Company,
-          buildFillable(
-            {
-              ...userData,
-              accountId: account.id,
-              uuid: uuidv4(),
-              rcNumber: userData.isOffshore
-                ? generateRandomCode(5)
-                : userData.rcNumber,
-            },
-            accountTypeMapping.COMPANY.fillable,
-          ),
-        );
-        break;
-      case AccountTypeEnum.OPERATOR:
-        account = await entityManager.save(Account, {
-          ...userData,
-          uuid: uuidv4(),
-        });
-        await entityManager.save(
-          Operator,
-          buildFillable(
-            {
-              ...userData,
-              accountId: account.id,
-              uuid: uuidv4(),
-            },
-            accountTypeMapping.OPERATOR.fillable,
-          ),
-        );
-        break;
-      case AccountTypeEnum.AGENCY:
-        account = await entityManager.save(Account, {
-          ...userData,
-          uuid: uuidv4(),
-        });
-        await entityManager.save(
-          Agency,
-          buildFillable(
-            {
-              ...userData,
-              workflowGroups: userData.workflowGroups
-                ? StringHelper.stringify(userData.workflowGroups)
-                : '',
-              accountId: account.id,
-              uuid: uuidv4(),
-            },
-            accountTypeMapping.AGENCY.fillable,
-          ),
-        );
-        break;
-      case AccountTypeEnum.COMMUNITY_VENDOR:
-        const totalCommunityVendors = await entityManager.count(Account, {
-          where: {
-            type: AccountTypeEnum.COMMUNITY_VENDOR,
-            nogicNumber: Like('202/%'),
-          },
-        });
-        account = await entityManager.save(Account, {
-          ...userData,
-          uuid: uuidv4(),
-          nogicNumber: `202/${year}/${totalCommunityVendors + 1}`,
-        });
-        await entityManager.save(
-          CommunityVendor,
-          buildFillable(
-            {
-              ...userData,
-              workflowGroups: userData.workflowGroups
-                ? StringHelper.stringify(userData.workflowGroups)
-                : '',
-              accountId: account.id,
-              nogicNumber: `202/${year}/${totalCommunityVendors + 1}`,
-              uuid: uuidv4(),
-            },
-            accountTypeMapping.COMMUNITY_VENDOR.fillable,
-          ),
-        );
-        break;
-    }
-    return account;
-  }
-
-  async createExternal(data, entityManager?: EntityManager): Promise<any> {
-    const nogicNumber = await generateCryptoString(12);
-    data.rcNumber = `AUTO-${nogicNumber}`;
-
-    const userData = {
-      ...data,
-      nogicNumber,
-      type: data.accountType,
-    };
-
-    const account = await entityManager.save(Account, {
-      ...userData,
-      uuid: uuidv4(),
-    });
-    switch (data.accountType) {
-      case AccountTypeEnum.COMPANY:
-        await entityManager.save(
-          Company,
-          buildFillable(
-            {
-              ...userData,
-              accountId: account.id,
-              uuid: uuidv4(),
-            },
-            accountTypeMapping.COMPANY.fillable,
-          ),
-        );
-        break;
-      case AccountTypeEnum.OPERATOR:
-        await entityManager.save(
-          Operator,
-          buildFillable(
-            {
-              ...userData,
-              accountId: account.id,
-              uuid: uuidv4(),
-            },
-            accountTypeMapping.OPERATOR.fillable,
-          ),
-        );
-        break;
-    }
+    new Date().getFullYear().toString().slice(-2);
+    if (entityManager)
+      switch (data.accountType) {
+        case AccountTypeEnum.CUSTOMER: {
+          account = await entityManager.save(Account, {
+            ...userData,
+            uuid: uuidv4(),
+          });
+          const currentYear = new Date().getFullYear();
+          const competencyId = generateCompetency(userData.gender, currentYear);
+          await entityManager.save(
+            Customer,
+            buildFillable(
+              {
+                ...userData,
+                accountId: account.id,
+                uuid: uuidv4(),
+                competencyId,
+              },
+              accountTypeMapping.CUSTOMER.fillable,
+            ),
+          );
+          break;
+        }
+        case AccountTypeEnum.ADMIN:
+          account = await entityManager.save(Account, {
+            ...userData,
+            uuid: uuidv4(),
+          });
+          await entityManager.save(
+            Admin,
+            buildFillable(
+              {
+                ...userData,
+                workflowGroups: userData.workflowGroups
+                  ? StringHelper.stringify(userData.workflowGroups)
+                  : '',
+                accountId: account.id,
+                uuid: uuidv4(),
+              },
+              accountTypeMapping.ADMIN.fillable,
+            ),
+          );
+          break;
+      }
     return account;
   }
 
@@ -294,18 +169,13 @@ export class AccountRepository extends BaseRepository<Account> {
         users: {
           roles: true,
           accounts: {
-            individual: {
-              state: true,
-              nationality: true,
-              lga: true,
-              country: true,
+            customer: {
+              // state: true,
+              // nationality: true,
+              // lga: true,
+              // country: true,
             },
-            company: true,
-            operator: true,
-            agency: true,
-            communityVendor: {
-              state: true,
-            },
+            admin: true,
           },
         },
       },
@@ -384,7 +254,7 @@ export class AccountRepository extends BaseRepository<Account> {
       .leftJoinAndSelect('individual.state', 'state')
       .leftJoinAndSelect('individual.country', 'country')
       .where('account.type = :accountType', {
-        accountType: AccountTypeEnum.INDIVIDUAL,
+        accountType: AccountTypeEnum.CUSTOMER,
       });
 
     if (search) {
@@ -429,11 +299,11 @@ export class AccountRepository extends BaseRepository<Account> {
     });
   }
 
-  async findShareholdersTotalShares(accountId: number) {
-    return await this.shareholderRepository.findShareHoldersTotalShare(
-      accountId,
-    );
-  }
+  // async findShareholdersTotalShares(accountId: number) {
+  //   return await this.shareholderRepository.findShareHoldersTotalShare(
+  //     accountId,
+  //   );
+  // }
 
   async update(id: number, data): Promise<any> {
     const account = await this.accountRepository.findOne({
@@ -446,42 +316,21 @@ export class AccountRepository extends BaseRepository<Account> {
     }
 
     const accountTypeRelation = AccountTypeEnum[account.type];
-    this.loggerService.log(accountTypeRelation);
+    // this.loggerService.log(accountTypeRelation);
     let existingEntity;
     let repository;
     let fillableFields;
 
     switch (accountTypeRelation) {
-      case AccountTypeEnum.INDIVIDUAL:
+      case AccountTypeEnum.CUSTOMER:
         repository = this.individualRepository;
         fillableFields = accountTypeMapping[account.type].fillable;
         existingEntity = await repository.findOne({
           where: { accountId: account.id },
         });
         break;
-      case AccountTypeEnum.COMPANY:
-        repository = this.companyRepository;
-        fillableFields = accountTypeMapping[account.type].fillable;
-        existingEntity = await repository.findOne({
-          where: { accountId: account.id },
-        });
-        break;
-      case AccountTypeEnum.OPERATOR:
-        repository = this.operatorRepository;
-        fillableFields = accountTypeMapping[account.type].fillable;
-        existingEntity = await repository.findOne({
-          where: { accountId: account.id },
-        });
-        break;
-      case AccountTypeEnum.AGENCY:
+      case AccountTypeEnum.ADMIN:
         repository = this.agencyRepository;
-        fillableFields = accountTypeMapping[account.type].fillable;
-        existingEntity = await repository.findOne({
-          where: { accountId: account.id },
-        });
-        break;
-      case AccountTypeEnum.COMMUNITY_VENDOR:
-        repository = this.communityVendorRepository;
         fillableFields = accountTypeMapping[account.type].fillable;
         existingEntity = await repository.findOne({
           where: { accountId: account.id },
@@ -489,6 +338,7 @@ export class AccountRepository extends BaseRepository<Account> {
         break;
       default:
         throw new CustomInternalServerException(
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           `Unsupported account type: ${accountTypeRelation}`,
         );
     }
@@ -509,19 +359,14 @@ export class AccountRepository extends BaseRepository<Account> {
 
   private getRepositoryForAccountType(accountType: AccountTypeEnum) {
     switch (accountType) {
-      case AccountTypeEnum.INDIVIDUAL:
+      case AccountTypeEnum.CUSTOMER:
         return this.individualRepository;
-      case AccountTypeEnum.COMPANY:
-        return this.companyRepository;
-      case AccountTypeEnum.OPERATOR:
-        return this.operatorRepository;
-      case AccountTypeEnum.AGENCY:
+      case AccountTypeEnum.ADMIN:
         return this.agencyRepository;
-      case AccountTypeEnum.COMMUNITY_VENDOR:
-        return this.communityVendorRepository;
 
       default:
         throw new CustomInternalServerException(
+          // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
           `Unsupported account type: ${accountType}`,
         );
     }

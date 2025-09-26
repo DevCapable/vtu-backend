@@ -5,13 +5,12 @@ import { CustomNamingStrategy } from '../strategies/custom-naming-strategy';
 dotenvConfig();
 
 export default new DataSource({
-  type: 'oracle',
-  host: process.env.ORACLE_HOST,
-  port: parseInt(process.env.ORACLE_PORT, 10),
-  sid: process.env.ORACLE_SID,
-  database: process.env.ORACLE_DATABASE,
-  username: process.env.ORACLE_USERNAME,
-  password: process.env.ORACLE_PASSWORD,
+  type: 'mysql',
+  host: process.env.MYSQL_HOST,
+  port: parseInt(process.env.MYSQL_PORT || '3306', 10),
+  database: process.env.MYSQL_DATABASE,
+  username: process.env.MYSQL_USERNAME,
+  password: process.env.MYSQL_PASSWORD,
   entities: ['dist/src/**/*.entity{.ts,.js}'],
   migrations: ['dist/src/database/migrations/*{.ts,.js}'],
   namingStrategy: new CustomNamingStrategy(),

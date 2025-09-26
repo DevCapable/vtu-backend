@@ -1,6 +1,6 @@
 import * as _ from 'lodash';
 import { omit, pick } from './functions';
-import { Brackets, Like, SelectQueryBuilder } from 'typeorm';
+import { Brackets, Like, ObjectLiteral, SelectQueryBuilder } from 'typeorm';
 
 export const newbuildSearchQuery = (options: any, searchableCols: string[]) => {
   let where: any = {};
@@ -284,7 +284,7 @@ export const buildRelationsOld = (relations: string[]) => {
 export const buildFillable = (data, fillable) =>
   fillable.length ? pick(data, fillable) : data;
 
-export const buildRelations = <T>(
+export const buildRelations = <T extends ObjectLiteral>(
   qb: SelectQueryBuilder<T>,
   relations: string[],
   alias = 'entity',

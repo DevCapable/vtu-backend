@@ -1,10 +1,10 @@
-import { LoggerService } from './logger';
+// import { LoggerService } from './logger';
 
 export default function useSwaggerUIAuthStoragePlugin(): any {
   /* eslint-disable */
   // prettier-ignore
 
-  var loggerService: LoggerService
+  // var loggerService: LoggerService
   const afterLoad = function (ui) {
     // NOTE: Code inside this afterLoad function will run in the browser!
     //
@@ -27,9 +27,9 @@ export default function useSwaggerUIAuthStoragePlugin(): any {
       var token = localStorage.getItem(AUTH_SCHEME);
       if (token) {
         setAuthToken(token);
-        loggerService.log(
-          'Restored ' + AUTH_SCHEME + ' token from localStorage.',
-        );
+        // loggerService.log(
+        //   'Restored ' + AUTH_SCHEME + ' token from localStorage.',
+        // );
       }
       // Start polling ui.getState() to see if the user changed tokens.
       setTimeout(checkForNewLogin, 3000);
@@ -38,7 +38,7 @@ export default function useSwaggerUIAuthStoragePlugin(): any {
     function checkForNewLogin() {
       var stateToken = getAuthTokenFromState();
       if (stateToken !== currentAuthToken) {
-        loggerService.log('Saved ' + AUTH_SCHEME + ' token to localStorage.');
+        // loggerService.log('Saved ' + AUTH_SCHEME + ' token to localStorage.');
         if (stateToken) {
           localStorage.setItem(AUTH_SCHEME, stateToken);
         } else {

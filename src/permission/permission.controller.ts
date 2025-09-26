@@ -6,21 +6,16 @@ import { ApiFilterPagination } from '@app/core/decorators/api-filter-pagination.
 import { PaginationInterceptor } from '@app/core/providers/pagination/pagination.interceptor';
 import { FiltersQuery, PaginationQuery } from '@app/core/decorators';
 import { CurrentUser } from '@app/iam/decorators';
-import { LoggerService } from '@app/logger';
 
 /**
  * @TODO activate permission guards
  */
-@Accounts(
-  AccountTypeEnum.AGENCY,
-  AccountTypeEnum.COMPANY,
-  AccountTypeEnum.OPERATOR,
-)
+@Accounts(AccountTypeEnum.ADMIN)
 @Controller('permissions')
 export class PermissionController {
   constructor(
     private readonly permissionsService: PermissionService,
-    private readonly loggerService: LoggerService,
+    // private readonly loggerService: LoggerService,
   ) {}
 
   @ApiFilterPagination('Get all Permissions')
@@ -48,6 +43,6 @@ export class PermissionController {
     @PaginationQuery() paginationOptions,
     @CurrentUser() user,
   ) {
-    this.loggerService.log('...');
+    // this.loggerService.log('...');
   }
 }

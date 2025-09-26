@@ -17,13 +17,13 @@ enum EmploymentStatus {
 }
 
 @Entity({
-  name: 'ACCOUNT_INDIVIDUALS',
+  name: 'ACCOUNT_CUSTOMER',
 })
-export class Individual {
+export class Customer {
   @PrimaryColumn()
   accountId: number;
 
-  @OneToOne(() => Account, (account) => account.individual)
+  @OneToOne(() => Account, (account) => account.customer)
   @JoinColumn()
   account: Account;
 
@@ -35,9 +35,6 @@ export class Individual {
 
   @Column({ nullable: true })
   otherNames?: string;
-
-  @Column({ default: false, width: 0 })
-  isExpatriate: boolean;
 
   @Column()
   dob: Date;
@@ -63,7 +60,7 @@ export class Individual {
   // nationality: BaseRecord;
 
   @Column({ nullable: true })
-  altEmail?: string;
+  email?: string;
 
   @Column({ nullable: true })
   altPhoneNumber?: string;
@@ -74,50 +71,21 @@ export class Individual {
   @Column({ nullable: true })
   stateId?: number;
 
-  // @ManyToOne(() => BaseRecord, {
-  //   nullable: true,
-  // })
-  // state?: BaseRecord;
-
   @Column({ nullable: true })
   cityResidence?: string;
 
   @Column({ nullable: true })
-  stateResidenceForeign?: string;
+  referralCode?: string;
 
   @Column({ nullable: true })
-  stateResidenceId?: number;
+  kycStatus?: string;
 
   // @ManyToOne(() => BaseRecord, { nullable: true })
   // stateResidence?: BaseRecord;
 
   @Column({ nullable: true })
-  lgaId?: number;
-
-  // @ManyToOne(() => BaseRecord)
-  // lga?: BaseRecord;
-
-  @Column({ nullable: true })
-  homeTown?: string;
-
-  @Column({
-    length: 50,
-    nullable: true,
-  })
-  employmentStatus?: EmploymentStatus;
-
-  @Column({ nullable: true })
-  currentEmployer?: string;
-
-  @Column({ nullable: true })
-  dateEmployed?: Date;
-
-  @Column({ nullable: true })
   photo?: string;
 
-  @Column({ nullable: true })
-  ninNumber?: string;
-
-  @Column({ nullable: true })
-  competencyId?: string;
+  // @Column({ nullable: true })
+  // ninNumber?: string;
 }

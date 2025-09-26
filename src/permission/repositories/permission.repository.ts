@@ -4,7 +4,6 @@ import { Permission } from '../entities/permission.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { buildRelations } from '@app/core/util';
-import { ExternalLinkOriginEnum } from '@app/iam/enum';
 
 @Injectable()
 export class PermissionRepository extends BaseRepository<Permission> {
@@ -37,16 +36,15 @@ export class PermissionRepository extends BaseRepository<Permission> {
       [key: string]: any;
     } = {},
     paginationOptions: { skip?: number; limit?: number } = {},
-    user = null,
+    user: any = null,
     permissionGroup = [],
     relations: string[] = [],
   ): Promise<[Permission[], number]> {
-    const { sortKey, sortDir, special, type, origin } = filterOptions;
+    const { sortKey, sortDir, special, type } = filterOptions;
     const { skip, limit } = paginationOptions;
 
     const _type = type || user.account.type;
     const _special = parseInt(special, 10) || 0;
-    const _origin = origin || ExternalLinkOriginEnum.NOGIC;
 
     const queryBuilder = this.repository.createQueryBuilder('entity');
 
@@ -92,10 +90,6 @@ export class PermissionRepository extends BaseRepository<Permission> {
 
     queryBuilder.andWhere('entity.isSpecial = :isSpecial', {
       isSpecial: _special,
-    });
-
-    queryBuilder.andWhere('entity.origin = :origin', {
-      origin: _origin,
     });
 
     return queryBuilder.getManyAndCount();

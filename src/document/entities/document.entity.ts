@@ -1,6 +1,5 @@
 import { BaseEntity } from '@app/core/base/base.entity';
 import { Entity, Column } from 'typeorm';
-import { DocumentDomain } from '../types';
 
 @Entity()
 export class Document extends BaseEntity<Document> {
@@ -16,15 +15,15 @@ export class Document extends BaseEntity<Document> {
   @Column({ default: 0 })
   isRequired: number;
 
-  @Column({ type: 'clob', nullable: true })
-  allowedFormats: string | null;
+  @Column({ nullable: true })
+  allowedFormats: string;
 
-  @Column({ nullable: true, type: 'clob' })
-  description: string | null;
+  @Column({ nullable: true })
+  description: string;
 
   @Column({ default: 0 })
   order: number;
 
-  @Column({ enum: DocumentDomain, default: DocumentDomain.NOGIC })
-  domain: DocumentDomain;
+  // @Column({ enum: DocumentDomain, default: DocumentDomain.NOGIC })
+  // domain: DocumentDomain;
 }

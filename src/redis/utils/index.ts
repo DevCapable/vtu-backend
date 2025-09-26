@@ -1,3 +1,3 @@
-export function getConnectionToken(redisStoreName: string) {
+export function getConnectionToken(redisStoreName: any) {
   return `${redisStoreName}Connection`;
 }

@@ -19,22 +19,14 @@ import { ApiEndpoint, FiltersQuery, PaginationQuery } from '../core/decorators';
 import { ApiFilterPagination } from '../core/decorators/api-filter-pagination.decorator';
 import { PaginationInterceptor } from '../core/providers/pagination/pagination.interceptor';
 import { UpdateBaseRecordDto } from './dto/update-base-record.dto';
-import { AuditLogInterceptor } from '@app/audit-log/interceptors/audit-log.interceptor';
-import { EntityType } from '@app/audit-log/enum';
 import { Public } from '@app/iam/decorators';
 
 @Controller('base-records')
 @ApiTags('base-records')
-@UseInterceptors(
-  AuditLogInterceptor({
-    entityType: EntityType.BASE_RECORD,
-    service: BaseRecordService,
-  }),
-)
 export class BaseRecordController {
   constructor(private readonly baseRecordService: BaseRecordService) {}
 
-  @Accounts(AccountTypeEnum.AGENCY)
+  @Accounts(AccountTypeEnum.ADMIN)
   @HttpCode(HttpStatus.CREATED)
   @ApiEndpoint('Create Base Record')
   @ApiResponse({
@@ -77,7 +69,7 @@ export class BaseRecordController {
     return this.baseRecordService.findOne(+id);
   }
 
-  @Accounts(AccountTypeEnum.AGENCY)
+  @Accounts(AccountTypeEnum.ADMIN)
   @HttpCode(HttpStatus.OK)
   @ApiOperation({
     summary: 'Update Base Record',
@@ -95,7 +87,7 @@ export class BaseRecordController {
     return this.baseRecordService.update(+id, updateBaseRecordDto);
   }
 
-  @Accounts(AccountTypeEnum.AGENCY)
+  @Accounts(AccountTypeEnum.ADMIN)
   @HttpCode(HttpStatus.OK)
   @ApiEndpoint('Delete Base Record')
   @ApiResponse({

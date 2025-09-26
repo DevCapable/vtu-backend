@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import IORedis from 'ioredis';
 
-import { ConfigType } from '@nestjs/config';
+import type { ConfigType } from '@nestjs/config';
 import jwtConfig from '../config/jwt.config';
 import { getSessionKey } from '../authentication/utils';
 import { APP_REDIS } from '@app/redis/constants';

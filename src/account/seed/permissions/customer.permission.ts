@@ -1,16 +1,16 @@
 import { permissionActions, permissionSubjectName, subject } from './abilities';
 
-export const individualPermissionDbSeed = [
+export const customerPermissionDbSeed = [
   {
     action: permissionActions.READ,
     title: permissionSubjectName.READ,
-    subject: subject.individual,
+    subject: subject.customer,
     permissionGroupId: 31,
   },
   {
     action: permissionActions.REPORT,
     title: permissionSubjectName.REPORT,
-    subject: subject.individual,
+    subject: subject.customer,
     permissionGroupId: 31,
   },
 ];

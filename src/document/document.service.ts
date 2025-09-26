@@ -5,18 +5,16 @@ import { unlink } from 'fs';
 import { cwd } from 'process';
 import { join } from 'path';
 import { EntityManager, ILike } from 'typeorm';
-import { S3Service } from './s3.service';
+// import { S3Service } from './s3.service';
 import { v4 as uuidv4 } from 'uuid';
 import { DocumentType } from '@app/document/enum/document.enum';
 import { ConfigService } from '@nestjs/config';
-import { NcecApplication } from '@app/ncec/entities/ncec.entity';
 import { DocumentFile } from '@app/document/entities/document-file.entity';
 import { CustomNotFoundException } from '@app/core/error';
-import { LoggerService } from '@app/logger';
 import { StringHelper } from '@app/core/helpers';
 
 import { AccountTypeEnum } from '@app/account/enums';
-import { DocumentReviewService } from '@app/review/document-review.service';
+// import { DocumentReviewService } from '@app/review/document-review.service';
 import { CurrentUserData } from '@app/iam/interfaces';
 
 @Injectable()
@@ -24,24 +22,24 @@ export class DocumentService {
   constructor(
     private readonly documentRepository: DocumentRepository,
     private readonly documentFileRepository: DocumentFileRepository,
-    private readonly s3Service: S3Service,
+    // private readonly s3Service: S3Service,
     private readonly configService: ConfigService,
     private readonly entityManager: EntityManager,
-    private readonly loggerService: LoggerService,
-    private readonly documentReviewService: DocumentReviewService,
+    // private readonly loggerService: LoggerService,
+    // private readonly documentReviewService: DocumentReviewService,
   ) {}
 
-  async uploadDocumentData(files, folder = 'files') {
-    if (files && files.length > 0) {
-      const uploadPromises = files.map((file) =>
-        this.s3Service.uploadFile(file, folder),
-      );
-      const uploadResults = await Promise.all(uploadPromises);
-      return uploadResults;
-    }
-  }
+  // async uploadDocumentData(files, folder = 'files') {
+  //   if (files && files.length > 0) {
+  //     const uploadPromises = files.map((file) =>
+  //       this.s3Service.uploadFile(file, folder),
+  //     );
+  //     const uploadResults = await Promise.all(uploadPromises);
+  //     return uploadResults;
+  //   }
+  // }
 
-  async createDocumentFiles(data) {
+  createDocumentFiles(data) {
     data.documentFiles.map(async (document) => {
       await this.documentFileRepository.create({
         ...document,
@@ -53,7 +51,7 @@ export class DocumentService {
     });
   }
 
-  async createDocumentFile(documents, fileableId, fileableType) {
+  createDocumentFile(documents, fileableId, fileableType) {
     const reference = documents.map((document) => document.id);
     documents.map(async (document) => {
       if (!document.id) {
@@ -66,7 +64,7 @@ export class DocumentService {
           });
           reference.push(newDocumentFile.id);
         } catch (e) {
-          this.loggerService.log(e);
+          // this.loggerService.log(e);
         }
       }
     });
@@ -89,6 +87,7 @@ export class DocumentService {
     );
 
     return await Promise.all(
+      // eslint-disable-next-line @typescript-eslint/await-thenable
       documentFiles.map((file) => this._transformDocumentFile(file)),
     );
   }
@@ -119,24 +118,24 @@ export class DocumentService {
   async deleteDocumentFile(key: string) {
     try {
       await this.documentFileRepository.delete(key);
-      await this.s3Service.deleteFile(key);
+      // await this.s3Service.deleteFile(key);
     } catch (e) {
-      await this.s3Service.deleteFile(key);
+      // await this.s3Service.deleteFile(key);
     }
   }
 
   async deleteManyDocumentFiles(keys: string[]) {
     await this.documentFileRepository.deleteMany(keys);
     keys.map(async (key) => {
-      await this.s3Service.deleteFile(key);
+      // await this.s3Service.deleteFile(key);
     });
   }
 
-  async unlinkDocumentFile(filePath: string) {
+  unlinkDocumentFile(filePath: string) {
     const documentPath = join(cwd(), `public/uploads/${filePath}`);
     unlink(documentPath, (err) => {
-      if (err)
-        this.loggerService.error('Error deleting document file', err.message);
+      // if (err)
+      // this.loggerService.error('Error deleting document file', err.message);
     });
   }
 
@@ -177,9 +176,9 @@ export class DocumentService {
     currentUser?: CurrentUserData;
   }) {
     const isAgencyAccount =
-      currentUser?.account?.type === AccountTypeEnum.AGENCY;
+      currentUser?.account?.type === AccountTypeEnum.ADMIN;
 
-    let documentReviews = [];
+    const documentReviews = [];
 
     const documents = await this.findDocumentsByType(documentType);
     const documentFiles = await this.findFilesByFileable(
@@ -187,24 +186,26 @@ export class DocumentService {
       fileableType,
     );
 
-    if (isAgencyAccount) {
-      documentReviews = await this.documentReviewService.findDocumentReviews(
-        fileableId,
-        fileableType,
-      );
-    }
+    // if (isAgencyAccount) {
+    //   documentReviews = await this.documentReviewService.findDocumentReviews(
+    //     fileableId,
+    //     fileableType,
+    //   );
+    // }
 
-    return documents.map((document) => {
-      const files = documentFiles.filter(
-        (file) => file.documentId === document.id,
-      );
+    if (documents)
+      return documents.map((document) => {
+        const files = documentFiles.filter(
+          (file) => file.documentId === document.id,
+        );
 
-      const reviews =
-        documentReviews.filter((review) => review.documentId === document.id) ||
-        [];
+        const reviews =
+          documentReviews.filter(
+            (review: any) => review.documentId === document.id,
+          ) || [];
 
-      return { ...document, documentFiles: files, reviews };
-    });
+        return { ...document, documentFiles: files, reviews };
+      });
   }
 
   async findDocumentsByTypeAndSlug(type: string, slug: string) {
@@ -252,7 +253,7 @@ export class DocumentService {
     return this.documentRepository.delete(id);
   }
 
-  private async _transformDocumentFile(file: DocumentFile) {
+  private _transformDocumentFile(file: DocumentFile) {
     const basePath = this.configService.get('S3_BASE_URL');
 
     const folderMappings: any = {
@@ -269,25 +270,9 @@ export class DocumentService {
 
     let filePath = `${basePath}files/${file.awsKey.replace('files/', '')}`;
 
-    let folder = folderMappings[file?.fileableType as any] || null;
+    const folder = folderMappings[file?.fileableType as any] || null;
 
     if (!file.mimeType && folder) {
-      if (folder === 'ncec') {
-        const app = await this.entityManager.findOne(NcecApplication, {
-          where: {
-            id: file.fileableId,
-          },
-          relations: {
-            category: true,
-          },
-        });
-
-        if (app?.category) {
-          const categoryCode = app.category.code?.toLowerCase();
-          folder = `ncec-category-${categoryCode}`;
-        }
-      }
-
       filePath = `${basePath}generic_documents/${folder}/${file.awsKey}`;
     }
 

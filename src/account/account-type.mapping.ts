@@ -1,15 +1,9 @@
 import {
   CreateAgencyDto,
-  CreateCompanyDto,
   CreateIndividualDto,
-  CreateOperatorDto,
   UpdateAgencyDto,
-  UpdateCompanyDto,
   UpdateIndividualDto,
-  UpdateOperatorDto,
 } from './dto';
-import { CreateCommunityVendorDto } from './dto/community-vendor/create-community-vendor.dto';
-import { UpdateCommunityVendorDto } from './dto/community-vendor/update-community-vendor.dto';
 import { AccountTypeEnum } from './enums';
 
 type Options = {
@@ -22,7 +16,7 @@ type Options = {
 
 export type AccountTypeMapping = Record<AccountTypeEnum, Options>;
 export const accountTypeMapping: AccountTypeMapping = {
-  [AccountTypeEnum.INDIVIDUAL]: {
+  [AccountTypeEnum.CUSTOMER]: {
     fillable: [
       'firstName',
       'lastName',
@@ -63,7 +57,7 @@ export const accountTypeMapping: AccountTypeMapping = {
     createDto: CreateIndividualDto,
     updateDto: UpdateIndividualDto,
   },
-  [AccountTypeEnum.AGENCY]: {
+  [AccountTypeEnum.ADMIN]: {
     fillable: [
       'firstName',
       'lastName',
@@ -83,102 +77,5 @@ export const accountTypeMapping: AccountTypeMapping = {
     ],
     createDto: CreateAgencyDto,
     updateDto: UpdateAgencyDto,
-  },
-  [AccountTypeEnum.COMPANY]: {
-    fillable: [
-      'name',
-      'rcNumber',
-      'isOffshore',
-      'email',
-      'phoneNumber',
-      'otherPhoneNumbers',
-      'address',
-      'businessCategoryId',
-      'otherPhoneNumbers',
-      'dprNumber',
-      'nseStatus',
-      'nseRegNo',
-      'incorporationDate',
-      'totalCompanyShares',
-      'taxNumber',
-      'facilityLocation',
-      'facility',
-      'staffStrengthLocal',
-      'staffStrengthForeign',
-      'staffStrengthForeignCount',
-      'staffStrengthNigeriaCount',
-      'nigerianOwnershipPercent',
-      'accountId',
-      'uuid',
-      'isExternal',
-    ],
-    relations: ['businessCategory'],
-    searchable: [
-      'company.name',
-      'users.email',
-      'company.phoneNumber',
-      'company.rcNumber',
-      'company.nogicNumber',
-    ],
-    createDto: CreateCompanyDto,
-    updateDto: UpdateCompanyDto,
-  },
-  [AccountTypeEnum.OPERATOR]: {
-    fillable: [
-      'name',
-      'email',
-      'password',
-      'rcNumber',
-      'address',
-      'businessCategoryId',
-      'categoryId',
-      'category',
-      'phoneNumber',
-      'businessCategory',
-      'otherPhoneNumbers',
-      'address',
-      'businessCategoryId',
-      'otherPhoneNumbers',
-      'dprNumber',
-      'nseStatus',
-      'nseRegNo',
-      'incorporationDate',
-      'totalCompanyShares',
-      'taxNumber',
-      'facilityLocation',
-      'facility',
-      'staffStrengthLocal',
-      'staffStrengthForeign',
-      'staffStrengthForeignCount',
-      'staffStrengthNigeriaCount',
-      'nigerianOwnershipPercent',
-      'accountId',
-      'uuid',
-    ],
-    searchable: [
-      'operator.name',
-      'users.email',
-      'operator.phoneNumber',
-      'operator.rcNumber',
-      'operator.nogicNumber',
-    ],
-    relations: ['category', 'businessCategory'],
-    createDto: CreateOperatorDto,
-    updateDto: UpdateOperatorDto,
-  },
-  [AccountTypeEnum.COMMUNITY_VENDOR]: {
-    fillable: [
-      'name',
-      'email',
-      'address',
-      'phoneNumber',
-      'accountId',
-      'stateId',
-      'nogicNumber',
-    ],
-    relations: ['state'],
-    searchable: ['communityVendor.name', 'communityVendor.nogicNumber'],
-    createDto: CreateCommunityVendorDto,
-    updateDto: UpdateCommunityVendorDto,
   },
 };

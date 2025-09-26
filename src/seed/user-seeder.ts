@@ -1,22 +1,23 @@
 import { Injectable } from '@nestjs/common';
 import { SeederInterface } from './seeder.interface';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from '../user/entities/user.entity';
 import { EntityManager, Repository } from 'typeorm';
 import { Account } from '../account/entities/account.entity';
-import { Agency, Position } from '../account/entities/agency.entity';
-import { Operator } from '../account/entities/operator.entity';
-import { Company } from '../account/entities/company.entity';
-import { Individual } from '../account/entities/individual.entity';
-import { BaseRecord } from '../base-record/entities/base-record.entity';
+import { Admin } from '../account/entities/admin.entity';
+import { Customer } from '../account/entities/customer.entity';
+// import { BaseRecord } from '../base-record/entities/base-record.entity';
 import { generateRandomCode } from '../core/util';
 import { AccountTypeEnum } from '../account/enums';
-import { BcryptService } from '@app/user/hashing/bcrypt.service';
+// import { BcryptService } from '@app/user/hashing/bcrypt.service';
 import { Role } from '@app/role/entities/role.entity';
 import { v4 as uuidv4 } from 'uuid';
 import { RolesEnum } from '@app/role/enums';
-import { LoggerService } from '@app/logger';
+// import { LoggerService } from '@app/logger';
 import { StringHelper } from '@app/core/helpers';
+import { BcryptService } from '@app/users/hashing/bcrypt.service';
+import { User } from '@app/users/entities/user.entity';
+import { LoggerService } from '@app/logger';
+import { BaseRecord } from '@app/base-record/entities/base-record.entity';
 
 const hashService = new BcryptService();
 
@@ -27,14 +28,14 @@ export class UserSeeder implements SeederInterface {
     private readonly user: Repository<User>,
     @InjectRepository(Account)
     private readonly account: Repository<Account>,
-    @InjectRepository(Agency)
-    private readonly agency: Repository<Agency>,
-    @InjectRepository(Operator)
-    private readonly operator: Repository<Operator>,
-    @InjectRepository(Company)
-    private readonly company: Repository<Company>,
-    @InjectRepository(Individual)
-    private readonly individual: Repository<Individual>,
+    @InjectRepository(Admin)
+    private readonly agency: Repository<Admin>,
+    // @InjectRepository(Operator)
+    // private readonly operator: Repository<Operator>,
+    // @InjectRepository(Company)
+    // private readonly company: Repository<Company>,
+    @InjectRepository(Customer)
+    private readonly customer: Repository<Customer>,
     @InjectRepository(BaseRecord)
     private readonly baseRecord: Repository<BaseRecord>,
     @InjectRepository(Role)
@@ -79,34 +80,30 @@ export class UserSeeder implements SeederInterface {
       uuid: uuidv4(),
     };
 
-    const account = await entityManager.save(Account, userData);
-    const accountData = {
-      ...userData,
-      accountId: account.id,
-      uuid: uuidv4(),
-    };
-    switch (data.accountType) {
-      case AccountTypeEnum.INDIVIDUAL:
-        const individual = await entityManager.save(Individual, accountData);
-        userData.individual = individual;
-        break;
-      case AccountTypeEnum.COMPANY:
-        const company = await entityManager.save(Company, accountData);
-        userData.company = company;
-        break;
-      case AccountTypeEnum.OPERATOR:
-        const operator = await entityManager.save(Operator, accountData);
-        userData.operator = operator;
-        break;
-      case AccountTypeEnum.AGENCY:
-        const agency = await entityManager.save(Agency, accountData);
-        userData.agency = agency;
-        break;
+    if (entityManager) {
+      const account = await entityManager.save(Account, userData);
+      const accountData = {
+        ...userData,
+        accountId: account.id,
+        uuid: uuidv4(),
+      };
+      switch (data.accountType) {
+        case AccountTypeEnum.CUSTOMER: {
+          const customer = await entityManager.save(Customer, accountData);
+          userData.customer = customer;
+          break;
+        }
+        case AccountTypeEnum.ADMIN: {
+          const agency = await entityManager.save(Admin, accountData);
+          userData.agency = agency;
+          break;
+        }
+      }
+      return account;
     }
-    return account;
   }
 
-  async createIndividualAccount() {
+  async createCustomerAccount() {
     const country = await this.baseRecord.findOne({
       where: {
         slug: 'nigeria',
@@ -120,27 +117,23 @@ export class UserSeeder implements SeederInterface {
     const userData = {
       firstName: 'JOHN',
       lastName: 'SMITH',
-      email: 'individual@gmail.com',
+      email: 'customer@gmail.com',
     };
 
     const accountData = {
       firstName: userData.firstName,
       lastName: userData.lastName,
-      countryId: country.id,
-      nationalityId: nationality.id,
+      countryId: country?.id,
+      nationalityId: nationality?.id,
       dob: '1888-04-24',
       gender: 'MALE',
       phoneNumber: '0099e8e8e7',
     };
 
-    return this.createAccount(
-      AccountTypeEnum.INDIVIDUAL,
-      userData,
-      accountData,
-    );
+    return this.createAccount(AccountTypeEnum.CUSTOMER, userData, accountData);
   }
 
-  async createAgencyAccount() {
+  async createAdminAccount() {
     const role = await this.role.findOne({
       where: {
         slug: RolesEnum.SUPER_ADMIN,
@@ -151,7 +144,7 @@ export class UserSeeder implements SeederInterface {
       lastName: 'ADMIN',
       email: 'super_admin@nogicjqs.gov.ng',
       phoneNumber: '0099e8e8e7',
-      position: Position.PO,
+      // position: Position.PO,
       // workflowGroups: [],
     };
 
@@ -163,81 +156,7 @@ export class UserSeeder implements SeederInterface {
     };
 
     return await this.createAccount(
-      AccountTypeEnum.AGENCY,
-      userData,
-      accountData,
-    );
-  }
-
-  async createCompanyAccount() {
-    const businessCategory = await this.baseRecord.findOne({
-      where: {
-        slug: StringHelper.slugify('Business Name [BUSN]'),
-      },
-    });
-    const role = await this.role.findOne({
-      where: {
-        slug: RolesEnum.SUPER_ADMIN,
-      },
-    });
-    const accountData = {
-      address: 'Surulere, Aguda',
-      businessCategoryId: businessCategory.id,
-      email: 'company@vas.com',
-      name: 'VASCON SOLUTIONS',
-      phoneNumber: '0838393837',
-      rcNumber: '3837373',
-    };
-
-    const userData = {
-      firstName: accountData.name,
-      lastName: accountData.rcNumber,
-      email: accountData.email,
-      roles: [role],
-    };
-
-    return await this.createAccount(
-      AccountTypeEnum.COMPANY,
-      userData,
-      accountData,
-    );
-  }
-
-  async createOperatorAccount() {
-    const category = await this.baseRecord.findOne({
-      where: {
-        slug: StringHelper.slugify('International Oil Companies'),
-      },
-    });
-    const businessCategory = await this.baseRecord.findOne({
-      where: {
-        slug: StringHelper.slugify('Private Limited Company (LTD)'),
-      },
-    });
-    const role = await this.role.findOne({
-      where: {
-        name: 'Super Admin',
-      },
-    });
-    const accountData = {
-      categoryId: category.id,
-      address: 'Surulere, Aguda',
-      businessCategoryId: businessCategory.id,
-      email: 'operator@vas.com',
-      name: 'VASCON OPERATOR SOLUTIONS',
-      phoneNumber: '0838393837',
-      rcNumber: '3837373',
-    };
-
-    const userData = {
-      firstName: accountData.name,
-      lastName: accountData.rcNumber,
-      email: accountData.email,
-      roles: [role],
-    };
-
-    return await this.createAccount(
-      AccountTypeEnum.OPERATOR,
+      AccountTypeEnum.ADMIN,
       userData,
       accountData,
     );
@@ -245,8 +164,8 @@ export class UserSeeder implements SeederInterface {
 
   async seed() {
     try {
-      // await this.createAgencyAccount();
-      // await this.createIndividualAccount();
+      await this.createAdminAccount();
+      await this.createCustomerAccount();
       // await this.createCompanyAccount();
       // await this.createOperatorAccount();
     } catch (e) {

@@ -1,4 +1,9 @@
-import { DeepPartial, Repository, SelectQueryBuilder } from 'typeorm';
+import {
+  DeepPartial,
+  ObjectLiteral,
+  Repository,
+  SelectQueryBuilder,
+} from 'typeorm';
 import {
   buildFillable,
   buildRelations,
@@ -6,7 +11,7 @@ import {
   buildSearchQueryBuilder,
 } from '../util';
 
-export abstract class BaseRepository<T> {
+export abstract class BaseRepository<T extends ObjectLiteral> {
   public fillable: any[] = [];
   public searchable: string[] = [];
   public relations: string[] = [];
@@ -31,11 +36,11 @@ export abstract class BaseRepository<T> {
   }
 
   async save(entity: T | DeepPartial<T>): Promise<T> {
-    const newEntity = this.repository.create(entity) as T;
+    const newEntity = this.repository.create(entity);
     return this.repository.save(newEntity);
   }
 
-  async findOne(id, relations: string[] = []): Promise<T> {
+  async findOne(id, relations: string[] = []): Promise<T | null> {
     relations = relations.length ? relations : this.relations;
     const queryBuilder: SelectQueryBuilder<T> =
       this.repository.createQueryBuilder('entity');
@@ -85,7 +90,7 @@ export abstract class BaseRepository<T> {
     return queryBuilder.getMany();
   }
 
-  async update(id: number, data: any): Promise<T> {
+  async update(id: number, data: any): Promise<T | null> {
     const payload = buildFillable(data, this.fillable);
     await this.repository.update(id, payload);
     return this.findOne(id);
@@ -165,7 +170,7 @@ export abstract class BaseRepository<T> {
   async findFirst(
     where: any,
     relations: string[] = [],
-  ): Promise<T | undefined> {
+  ): Promise<T | undefined | null> {
     relations = relations.length ? relations : this.relations;
     const buildRelations = buildRelationsObj(relations);
 
@@ -179,7 +184,7 @@ export abstract class BaseRepository<T> {
   async findFirstBy(
     where: any,
     relations: string[] = [],
-  ): Promise<T | undefined> {
+  ): Promise<T | undefined | null> {
     relations = relations.length ? relations : this.relations;
     const buildRelations = buildRelationsObj(relations);
     const entity = await this.repository.findOne({
@@ -202,17 +207,18 @@ export abstract class BaseRepository<T> {
     return entities;
   }
 
-  async delete(id: number | string | any): Promise<T> {
+  // eslint-disable-next-line @typescript-eslint/no-redundant-type-constituents
+  async delete(id: number | string | any): Promise<T | null> {
     const queryBuilder = this.repository.createQueryBuilder('entity');
     const entity = queryBuilder.where('entity.id = :id', { id }).getOne();
     await this.repository.delete(id);
     return entity;
   }
 
-  async deleteMultiple(id: { id: { in: number[] } } | any): Promise<T> {
+  async deleteMultiple(id: { id: { in: number[] } }): Promise<T | null> {
     const queryBuilder = this.repository.createQueryBuilder('entity');
     queryBuilder.where('entity.id = :id', { id });
-    await this.repository.delete(id);
+    await this.repository.delete(id as unknown as number);
     return queryBuilder.getOne();
   }
 
@@ -222,7 +228,7 @@ export abstract class BaseRepository<T> {
 
   async findWithoutApplication(
     accountId: number,
-    requestIds?: number[] | undefined,
+    requestIds?: number[],
   ): Promise<T[]> {
     const query = this.repository
       .createQueryBuilder('entity')

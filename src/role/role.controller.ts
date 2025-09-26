@@ -23,15 +23,9 @@ import {
 } from '@app/core/decorators';
 import { ApiFilterPagination } from '@app/core/decorators/api-filter-pagination.decorator';
 import { PaginationInterceptor } from '@app/core/providers/pagination/pagination.interceptor';
-import { AuditLogInterceptor } from '@app/audit-log/interceptors/audit-log.interceptor';
-import { EntityType } from '@app/audit-log/enum';
 
 @Controller('roles')
-@Accounts(
-  AccountTypeEnum.AGENCY,
-  AccountTypeEnum.OPERATOR,
-  AccountTypeEnum.COMPANY,
-)
+@Accounts(AccountTypeEnum.ADMIN)
 @ApiTags('roles')
 export class RoleController {
   constructor(private readonly rolesService: RoleService) {}
@@ -43,12 +37,6 @@ export class RoleController {
     description: 'Role created successfully',
   })
   @Post()
-  @UseInterceptors(
-    AuditLogInterceptor({
-      entityType: EntityType.ROLE,
-      service: RoleService,
-    }),
-  )
   create(@Body() createRoleDto: CreateRoleDto) {
     return this.rolesService.create(createRoleDto);
   }
@@ -114,13 +102,6 @@ export class RoleController {
     description: 'Ok',
   })
   @Patch(':id')
-  @UseInterceptors(
-    AuditLogInterceptor({
-      entityType: EntityType.ROLE,
-      service: RoleService,
-      changeKeys: ['name', 'slug', 'description'],
-    }),
-  )
   update(@Param('id') id: string, @Body() updateRoleDto) {
     return this.rolesService.update(+id, updateRoleDto);
   }
@@ -131,12 +112,6 @@ export class RoleController {
     status: 200,
     description: 'Ok',
   })
-  @UseInterceptors(
-    AuditLogInterceptor({
-      entityType: EntityType.ROLE,
-      service: RoleService,
-    }),
-  )
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.rolesService.remove(+id);

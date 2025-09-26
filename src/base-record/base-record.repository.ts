@@ -46,7 +46,7 @@ export class BaseRecordRepository extends BaseRepository<BaseRecord> {
     return queryBuilder;
   }
 
-  async findOrCreate(data: any): Promise<BaseRecord> {
+  async findOrCreate(data: any): Promise<any> {
     const existingRecord = await this.baseRecordRepository.findOne({
       where: {
         name: data.name,

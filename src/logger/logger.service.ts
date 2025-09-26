@@ -7,7 +7,7 @@ import {
   transports,
   Logger as WinstonLogger,
 } from 'winston';
-import 'winston-daily-rotate-file';
+import DailyRotateFile from 'winston-daily-rotate-file';
 
 @Injectable()
 export class LoggerService implements NestLoggerService {
@@ -22,6 +22,7 @@ export class LoggerService implements NestLoggerService {
         format.json(),
       ),
       transports: [
+        // Console Transport
         new transports.Console({
           format: format.combine(
             format.colorize(),
@@ -30,26 +31,34 @@ export class LoggerService implements NestLoggerService {
             }),
           ),
         }),
-        new transports.DailyRotateFile({
+
+        // Daily Rotate File Transport
+        new DailyRotateFile({
           level: 'error',
-          format: format.combine(
-            format.printf(({ level, message, timestamp }) => {
-              let user: CurrentUserData | null;
-              try {
-                user = BaseService.getCurrentUser();
-              } catch (e) {}
-              if (user) {
-                const { email, account, id } = user;
-                return `${timestamp} [${level}]${user ? ` [USER: ${account?.type} - ${id} - ${email}]:` : ''} ${message}`;
-              } else return `${timestamp} [${level}]: ${message}`;
-            }),
-          ),
           dirname: 'logs',
           filename: '%DATE%.log',
           datePattern: 'YYYY-MM-DD',
           zippedArchive: true,
           maxSize: '20m',
           maxFiles: '7d',
+          format: format.combine(
+            format.printf(({ level, message, timestamp }) => {
+              // Initialize user safely
+              let user: CurrentUserData | null = null;
+              try {
+                user = BaseService.getCurrentUser();
+              } catch (e) {
+                // Optionally log or ignore
+              }
+
+              if (user) {
+                const { email, account, id } = user;
+                return `${timestamp} [${level}] [USER: ${account?.type} - ${id} - ${email}]: ${message}`;
+              } else {
+                return `${timestamp} [${level}]: ${message}`;
+              }
+            }),
+          ),
         }),
       ],
     });

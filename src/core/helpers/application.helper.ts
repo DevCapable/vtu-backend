@@ -56,7 +56,7 @@ export class ApplicationHelper<T extends DefaultApp = DefaultApp> {
   }
 
   async transformData(repository: BaseRepository<T>): Promise<T> {
-    let parent = null;
+    let parent: any;
 
     if (!this.app) return this.app;
 

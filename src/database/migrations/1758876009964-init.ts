@@ -1,0 +1,94 @@
+import { MigrationInterface, QueryRunner } from "typeorm";
+
+export class Init1758876009964 implements MigrationInterface {
+    name = 'Init1758876009964'
+
+    public async up(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`CREATE TABLE \`ACCOUNT_ADMIN\` (\`ACCOUNT_ID\` int NOT NULL, \`FIRST_NAME\` varchar(255) NOT NULL, \`LAST_NAME\` varchar(255) NOT NULL, \`OTHER_NAMES\` varchar(255) NULL, \`PHONE_NUMBER\` varchar(255) NULL, PRIMARY KEY (\`ACCOUNT_ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`ACCOUNT_CUSTOMER\` (\`ACCOUNT_ID\` int NOT NULL, \`FIRST_NAME\` varchar(255) NOT NULL, \`LAST_NAME\` varchar(255) NOT NULL, \`OTHER_NAMES\` varchar(255) NULL, \`DOB\` datetime NOT NULL, \`GENDER\` varchar(255) NOT NULL, \`PHONE_NUMBER\` varchar(255) NULL, \`COUNTRY_ID\` int NULL, \`NATIONALITY_ID\` int NOT NULL, \`EMAIL\` varchar(255) NULL, \`ALT_PHONE_NUMBER\` varchar(255) NULL, \`ADDRESS\` varchar(1000) NULL, \`STATE_ID\` int NULL, \`CITY_RESIDENCE\` varchar(255) NULL, \`REFERRAL_CODE\` varchar(255) NULL, \`KYC_STATUS\` varchar(255) NULL, \`PHOTO\` varchar(255) NULL, PRIMARY KEY (\`ACCOUNT_ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`ACCOUNTS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`TYPE\` varchar(50) NOT NULL, \`BIO\` varchar(255) NULL, \`OLD_ID\` int NULL, \`NOGIC_NUMBER\` varchar(255) NOT NULL, \`ACTIVE\` tinyint NOT NULL DEFAULT 1, UNIQUE INDEX \`IDX_a7b19bfc3b76eb5c9e0820776a\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`PERMISSION_GROUPS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`NAME\` varchar(255) NOT NULL, \`TYPE\` varchar(255) NULL, \`SLUG\` varchar(255) NULL, \`PARENT_ID\` varchar(255) NULL, UNIQUE INDEX \`IDX_61741962f70e5661ecd8dde939\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`PERMISSIONS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`TITLE\` varchar(255) NOT NULL, \`ACTION\` varchar(255) NOT NULL, \`SUBJECT\` varchar(255) NOT NULL, \`INVERTED\` tinyint(1) NOT NULL DEFAULT 0, \`CONDITIONS\` varchar(255) NULL, \`REASON\` varchar(255) NULL, \`PERMISSION_GROUP_ID\` int NOT NULL, \`DELETED_AT\` datetime NULL, \`IS_SPECIAL\` tinyint NOT NULL DEFAULT 0, UNIQUE INDEX \`IDX_598878c7cdd1348162f62408d2\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`ROLES\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`NAME\` varchar(255) NOT NULL, \`DESCRIPTION\` varchar(255) NOT NULL, \`SLUG\` varchar(255) NULL, \`SPECIAL\` tinyint NOT NULL DEFAULT 0, \`ACCOUNT_ID\` int NULL, UNIQUE INDEX \`IDX_10a85d236b512e336bd4c93b2b\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`USER_PASSWORDS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`EXPIRY_DATE\` datetime NOT NULL, \`PASSWORD\` varchar(255) NOT NULL, \`USER_ID\` int NOT NULL, UNIQUE INDEX \`IDX_6e465d694de8505619a9f0cfc4\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`USERS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`FIRST_NAME\` varchar(255) NOT NULL, \`LAST_NAME\` varchar(255) NOT NULL, \`EMAIL\` varchar(255) NOT NULL, \`PASSWORD\` varchar(255) NULL, \`NOGIC_NUMBER\` varchar(255) NOT NULL, \`IS_FIRST_LOGIN\` tinyint NULL, \`LAST_LOGIN\` datetime NULL, \`DELETED_AT\` datetime NULL, \`HASHED_RT\` varchar(255) NULL, \`IS_ACTIVATED\` tinyint NOT NULL DEFAULT 0, \`IS_TERMS_ACCEPTED\` tinyint NOT NULL DEFAULT 0, \`IS_PASSWORD_RESET\` tinyint NOT NULL DEFAULT 1, \`WF_USER_ID\` varchar(255) NULL, \`WF_USER_PASSWORD\` varchar(255) NULL, UNIQUE INDEX \`IDX_b3627970361354374c0e9545cd\` (\`UUID\`), UNIQUE INDEX \`IDX_03c5c0bfa50dcdf69c204bdebf\` (\`EMAIL\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`USER_VERIFICATIONS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`TOKEN\` varchar(255) NOT NULL, \`COMPLETED\` tinyint NOT NULL DEFAULT 0, \`USER_ID\` int NOT NULL, UNIQUE INDEX \`IDX_e2c99a1b2bd5e0756707cb02c1\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`DOCUMENTS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`NAME\` varchar(1000) NOT NULL, \`SLUG\` varchar(250) NOT NULL, \`TYPE\` varchar(250) NOT NULL, \`IS_REQUIRED\` int NOT NULL DEFAULT '0', \`ALLOWED_FORMATS\` varchar(255) NULL, \`DESCRIPTION\` varchar(255) NULL, \`ORDER\` int NOT NULL DEFAULT '0', UNIQUE INDEX \`IDX_d4b233fd6edfe291caeb61c1c6\` (\`UUID\`), UNIQUE INDEX \`IDX_0a971da1d38a8ac455504e1cf1\` (\`SLUG\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`DOCUMENT_FILES\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`FILE_PATH\` varchar(255) NOT NULL, \`AWS_KEY\` varchar(255) NOT NULL, \`MIME_TYPE\` varchar(255) NULL, \`SIZE\` int NULL, \`DOCUMENT_ID\` int NULL, \`FILEABLE_ID\` int NOT NULL, \`FILEABLE_TYPE\` varchar(255) NOT NULL, UNIQUE INDEX \`IDX_b6c60d9860a450e58b36110166\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`BASE_RECORDS\` (\`ID\` int NOT NULL AUTO_INCREMENT, \`UUID\` varchar(255) NOT NULL, \`CREATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6), \`UPDATED_AT\` timestamp(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6), \`NAME\` varchar(500) NOT NULL, \`TYPE\` varchar(500) NOT NULL, \`META_DATA\` text NULL, \`PARENT_ID\` int NULL, \`SLUG\` varchar(500) NULL, \`IS_ACTIVE\` tinyint NOT NULL DEFAULT '1', \`PARENTID\` int NULL, UNIQUE INDEX \`IDX_498c3c673bfa6e158175c707d5\` (\`UUID\`), PRIMARY KEY (\`ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`ACCOUNT_USERS\` (\`ACCOUNT_ID\` int NOT NULL, \`USER_ID\` int NOT NULL, INDEX \`IDX_1dddceeb3e8f2381ca656b094e\` (\`ACCOUNT_ID\`), INDEX \`IDX_616fc9c0ec9240f0500affc43c\` (\`USER_ID\`), PRIMARY KEY (\`ACCOUNT_ID\`, \`USER_ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`ROLES_PERMISSIONS_PERMISSIONS\` (\`ROLE_ID\` int NOT NULL, \`PERMISSION_ID\` int NOT NULL, INDEX \`IDX_d83f2ca184cec436cae11e28fc\` (\`ROLE_ID\`), INDEX \`IDX_268de2896a8843393f184bfd97\` (\`PERMISSION_ID\`), PRIMARY KEY (\`ROLE_ID\`, \`PERMISSION_ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`USER_ROLES\` (\`USER_ID\` int NOT NULL, \`ROLE_ID\` int NOT NULL, INDEX \`IDX_ebeb41607e7797e24b65744c31\` (\`USER_ID\`), INDEX \`IDX_ed093e6e85da958f647e4bc389\` (\`ROLE_ID\`), PRIMARY KEY (\`USER_ID\`, \`ROLE_ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`CREATE TABLE \`USER_PERMISSIONS\` (\`USER_ID\` int NOT NULL, \`PERMISSION_ID\` int NOT NULL, INDEX \`IDX_b14b7a65f83dd2b9ca2d6542d8\` (\`USER_ID\`), INDEX \`IDX_d88c362861da4c054b7b3f06d1\` (\`PERMISSION_ID\`), PRIMARY KEY (\`USER_ID\`, \`PERMISSION_ID\`)) ENGINE=InnoDB`);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_ADMIN\` ADD CONSTRAINT \`FK_eae1a16ac5fb9b6e7bd647be48d\` FOREIGN KEY (\`ACCOUNT_ID\`) REFERENCES \`ACCOUNTS\`(\`ID\`) ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_CUSTOMER\` ADD CONSTRAINT \`FK_2858e21147b607d3a246ba0fcee\` FOREIGN KEY (\`ACCOUNT_ID\`) REFERENCES \`ACCOUNTS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`PERMISSIONS\` ADD CONSTRAINT \`FK_124e715cd49f1d6816d6034e17b\` FOREIGN KEY (\`PERMISSION_GROUP_ID\`) REFERENCES \`PERMISSION_GROUPS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`USER_PASSWORDS\` ADD CONSTRAINT \`FK_e6a2562b584956b5b8004b6aa92\` FOREIGN KEY (\`USER_ID\`) REFERENCES \`USERS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`USER_VERIFICATIONS\` ADD CONSTRAINT \`FK_805b6da9bee89722167fe629cf3\` FOREIGN KEY (\`USER_ID\`) REFERENCES \`USERS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`DOCUMENT_FILES\` ADD CONSTRAINT \`FK_57cd31c9eb11f4b582651d5df82\` FOREIGN KEY (\`DOCUMENT_ID\`) REFERENCES \`DOCUMENTS\`(\`ID\`) ON DELETE CASCADE ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`BASE_RECORDS\` ADD CONSTRAINT \`FK_8e3f938a1f36a577b03dd6b7bb6\` FOREIGN KEY (\`PARENTID\`) REFERENCES \`BASE_RECORDS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_USERS\` ADD CONSTRAINT \`FK_1dddceeb3e8f2381ca656b094e8\` FOREIGN KEY (\`ACCOUNT_ID\`) REFERENCES \`ACCOUNTS\`(\`ID\`) ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_USERS\` ADD CONSTRAINT \`FK_616fc9c0ec9240f0500affc43cb\` FOREIGN KEY (\`USER_ID\`) REFERENCES \`USERS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`ROLES_PERMISSIONS_PERMISSIONS\` ADD CONSTRAINT \`FK_d83f2ca184cec436cae11e28fcd\` FOREIGN KEY (\`ROLE_ID\`) REFERENCES \`ROLES\`(\`ID\`) ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE \`ROLES_PERMISSIONS_PERMISSIONS\` ADD CONSTRAINT \`FK_268de2896a8843393f184bfd97f\` FOREIGN KEY (\`PERMISSION_ID\`) REFERENCES \`PERMISSIONS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`USER_ROLES\` ADD CONSTRAINT \`FK_ebeb41607e7797e24b65744c31b\` FOREIGN KEY (\`USER_ID\`) REFERENCES \`USERS\`(\`ID\`) ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE \`USER_ROLES\` ADD CONSTRAINT \`FK_ed093e6e85da958f647e4bc389a\` FOREIGN KEY (\`ROLE_ID\`) REFERENCES \`ROLES\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+        await queryRunner.query(`ALTER TABLE \`USER_PERMISSIONS\` ADD CONSTRAINT \`FK_b14b7a65f83dd2b9ca2d6542d84\` FOREIGN KEY (\`USER_ID\`) REFERENCES \`USERS\`(\`ID\`) ON DELETE CASCADE ON UPDATE CASCADE`);
+        await queryRunner.query(`ALTER TABLE \`USER_PERMISSIONS\` ADD CONSTRAINT \`FK_d88c362861da4c054b7b3f06d1c\` FOREIGN KEY (\`PERMISSION_ID\`) REFERENCES \`PERMISSIONS\`(\`ID\`) ON DELETE NO ACTION ON UPDATE NO ACTION`);
+    }
+
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.query(`ALTER TABLE \`USER_PERMISSIONS\` DROP FOREIGN KEY \`FK_d88c362861da4c054b7b3f06d1c\``);
+        await queryRunner.query(`ALTER TABLE \`USER_PERMISSIONS\` DROP FOREIGN KEY \`FK_b14b7a65f83dd2b9ca2d6542d84\``);
+        await queryRunner.query(`ALTER TABLE \`USER_ROLES\` DROP FOREIGN KEY \`FK_ed093e6e85da958f647e4bc389a\``);
+        await queryRunner.query(`ALTER TABLE \`USER_ROLES\` DROP FOREIGN KEY \`FK_ebeb41607e7797e24b65744c31b\``);
+        await queryRunner.query(`ALTER TABLE \`ROLES_PERMISSIONS_PERMISSIONS\` DROP FOREIGN KEY \`FK_268de2896a8843393f184bfd97f\``);
+        await queryRunner.query(`ALTER TABLE \`ROLES_PERMISSIONS_PERMISSIONS\` DROP FOREIGN KEY \`FK_d83f2ca184cec436cae11e28fcd\``);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_USERS\` DROP FOREIGN KEY \`FK_616fc9c0ec9240f0500affc43cb\``);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_USERS\` DROP FOREIGN KEY \`FK_1dddceeb3e8f2381ca656b094e8\``);
+        await queryRunner.query(`ALTER TABLE \`BASE_RECORDS\` DROP FOREIGN KEY \`FK_8e3f938a1f36a577b03dd6b7bb6\``);
+        await queryRunner.query(`ALTER TABLE \`DOCUMENT_FILES\` DROP FOREIGN KEY \`FK_57cd31c9eb11f4b582651d5df82\``);
+        await queryRunner.query(`ALTER TABLE \`USER_VERIFICATIONS\` DROP FOREIGN KEY \`FK_805b6da9bee89722167fe629cf3\``);
+        await queryRunner.query(`ALTER TABLE \`USER_PASSWORDS\` DROP FOREIGN KEY \`FK_e6a2562b584956b5b8004b6aa92\``);
+        await queryRunner.query(`ALTER TABLE \`PERMISSIONS\` DROP FOREIGN KEY \`FK_124e715cd49f1d6816d6034e17b\``);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_CUSTOMER\` DROP FOREIGN KEY \`FK_2858e21147b607d3a246ba0fcee\``);
+        await queryRunner.query(`ALTER TABLE \`ACCOUNT_ADMIN\` DROP FOREIGN KEY \`FK_eae1a16ac5fb9b6e7bd647be48d\``);
+        await queryRunner.query(`DROP INDEX \`IDX_d88c362861da4c054b7b3f06d1\` ON \`USER_PERMISSIONS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_b14b7a65f83dd2b9ca2d6542d8\` ON \`USER_PERMISSIONS\``);
+        await queryRunner.query(`DROP TABLE \`USER_PERMISSIONS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_ed093e6e85da958f647e4bc389\` ON \`USER_ROLES\``);
+        await queryRunner.query(`DROP INDEX \`IDX_ebeb41607e7797e24b65744c31\` ON \`USER_ROLES\``);
+        await queryRunner.query(`DROP TABLE \`USER_ROLES\``);
+        await queryRunner.query(`DROP INDEX \`IDX_268de2896a8843393f184bfd97\` ON \`ROLES_PERMISSIONS_PERMISSIONS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_d83f2ca184cec436cae11e28fc\` ON \`ROLES_PERMISSIONS_PERMISSIONS\``);
+        await queryRunner.query(`DROP TABLE \`ROLES_PERMISSIONS_PERMISSIONS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_616fc9c0ec9240f0500affc43c\` ON \`ACCOUNT_USERS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_1dddceeb3e8f2381ca656b094e\` ON \`ACCOUNT_USERS\``);
+        await queryRunner.query(`DROP TABLE \`ACCOUNT_USERS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_498c3c673bfa6e158175c707d5\` ON \`BASE_RECORDS\``);
+        await queryRunner.query(`DROP TABLE \`BASE_RECORDS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_b6c60d9860a450e58b36110166\` ON \`DOCUMENT_FILES\``);
+        await queryRunner.query(`DROP TABLE \`DOCUMENT_FILES\``);
+        await queryRunner.query(`DROP INDEX \`IDX_0a971da1d38a8ac455504e1cf1\` ON \`DOCUMENTS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_d4b233fd6edfe291caeb61c1c6\` ON \`DOCUMENTS\``);
+        await queryRunner.query(`DROP TABLE \`DOCUMENTS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_e2c99a1b2bd5e0756707cb02c1\` ON \`USER_VERIFICATIONS\``);
+        await queryRunner.query(`DROP TABLE \`USER_VERIFICATIONS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_03c5c0bfa50dcdf69c204bdebf\` ON \`USERS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_b3627970361354374c0e9545cd\` ON \`USERS\``);
+        await queryRunner.query(`DROP TABLE \`USERS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_6e465d694de8505619a9f0cfc4\` ON \`USER_PASSWORDS\``);
+        await queryRunner.query(`DROP TABLE \`USER_PASSWORDS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_10a85d236b512e336bd4c93b2b\` ON \`ROLES\``);
+        await queryRunner.query(`DROP TABLE \`ROLES\``);
+        await queryRunner.query(`DROP INDEX \`IDX_598878c7cdd1348162f62408d2\` ON \`PERMISSIONS\``);
+        await queryRunner.query(`DROP TABLE \`PERMISSIONS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_61741962f70e5661ecd8dde939\` ON \`PERMISSION_GROUPS\``);
+        await queryRunner.query(`DROP TABLE \`PERMISSION_GROUPS\``);
+        await queryRunner.query(`DROP INDEX \`IDX_a7b19bfc3b76eb5c9e0820776a\` ON \`ACCOUNTS\``);
+        await queryRunner.query(`DROP TABLE \`ACCOUNTS\``);
+        await queryRunner.query(`DROP TABLE \`ACCOUNT_CUSTOMER\``);
+        await queryRunner.query(`DROP TABLE \`ACCOUNT_ADMIN\``);
+    }
+
+}

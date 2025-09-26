@@ -6,10 +6,9 @@ import puppeteer from 'puppeteer';
 import * as qrcode from 'qrcode';
 import dayjs from 'dayjs';
 import { CustomInternalServerException } from '../error';
-import { LoggerService } from '@app/logger';
 import { StringHelper } from '../helpers';
 
-let loggerService: LoggerService;
+// let loggerService: LoggerService;
 export const generatePdfDocument = async ({
   template,
   isPortrait = false,
@@ -53,7 +52,7 @@ export const generatePdfDocument = async ({
     const backgroundImage = `${process.env.IMAGE_DOMAIN}logo_watermark.png`;
 
     const { esSignature, cbGmSignature, esName, cbGmTitle } =
-      await getSignatures(data);
+      getSignatures(data);
 
     const font =
       'data:application/x-font-woff;base64,' +
@@ -87,7 +86,7 @@ export const generatePdfDocument = async ({
 
     // TODO remove the args when deploying to production due to security issues
     const browser = await puppeteer.launch({
-      headless: 'new',
+      headless: true,
       args: ['--no-sandbox', '--disable-setuid-sandbox'],
       timeout: 60000,
     });
@@ -116,9 +115,9 @@ export const generatePdfDocument = async ({
       name: pdfName,
     };
   } catch (error) {
-    loggerService.error('error', error);
+    // loggerService.error('error', error);
     throw new CustomInternalServerException(
-      'Error generating or saving the PDF.',
+      `Error generating or saving the PDF.${error}`,
     );
   }
 };
@@ -277,7 +276,7 @@ export const convertToBase64 = (file: any) => {
   return Buffer.from(bitmap).toString('base64');
 };
 
-const getSignatures = async ({ dateApprovedRaw }: any) => {
+const getSignatures = ({ dateApprovedRaw }: any) => {
   let esSignature = `${process.env.IMAGE_DOMAIN}sigs/es-signature.png`;
   let cbGmSignature = `${process.env.IMAGE_DOMAIN}sigs/gm-cb-signature.png`;
   let cbGmTitle = 'General Manager, CBD';

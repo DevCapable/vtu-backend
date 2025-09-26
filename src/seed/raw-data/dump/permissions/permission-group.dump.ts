@@ -2,50 +2,21 @@ import { AccountTypeEnum } from '@app/account/enums';
 import { PermissionGroupName } from './abilities/group-name';
 
 export const permissionGroups = [
-  // // MARINE_VESSEL
-  // {
-  //   id: 1,
-  //   name: PermissionGroupName.MARINE_VESSEL,
-  //   type: AccountTypeEnum.COMPANY,
-  //   slug: Slug.MARINE_VESSEL,
-  // },
   {
     id: 2,
     name: PermissionGroupName.MARINE_VESSEL,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
-  // USER
-  // {
-  //   id: 3,
-  //   name: PermissionGroupName.USER_MANAGEMENT,
-  //   type: AccountTypeEnum.COMPANY,
-  // },
-  // {
-  //   id: 4,
-  //   name: PermissionGroupName.USER_MANAGEMENT,
-  //   type: AccountTypeEnum.OPERATOR,
-  // },
   {
     id: 5,
     name: PermissionGroupName.USER_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
-  // NCTRC
-  // {
-  //   id: 6,
-  //   name: PermissionGroupName.NCTRC,
-  //   type: AccountTypeEnum.COMPANY,
-  // },
-  // {
-  //   id: 7,
-  //   name: PermissionGroupName.NCTRC,
-  //   type: AccountTypeEnum.OPERATOR,
-  // },
   {
     id: 8,
     name: PermissionGroupName.NCTRC,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   // // ADVERT
   // {
@@ -61,24 +32,13 @@ export const permissionGroups = [
   {
     id: 11,
     name: PermissionGroupName.ADVERT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
-  // // NCRC
-  {
-    id: 12,
-    name: PermissionGroupName.NCRC,
-    type: AccountTypeEnum.COMPANY,
-  },
-  {
-    id: 13,
-    name: PermissionGroupName.NCRC,
-    type: AccountTypeEnum.OPERATOR,
-  },
   {
     id: 14,
     name: PermissionGroupName.NCRC,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // EXCHANGE PROG
@@ -95,7 +55,7 @@ export const permissionGroups = [
   {
     id: 17,
     name: PermissionGroupName.EXCHANGE_PROGRAM,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // TWP
@@ -112,47 +72,35 @@ export const permissionGroups = [
   {
     id: 20,
     name: PermissionGroupName.TWP,
-    type: AccountTypeEnum.AGENCY,
-  },
-
-  // EQ
-  {
-    id: 21,
-    name: PermissionGroupName.EQ,
-    type: AccountTypeEnum.COMPANY,
-  },
-  {
-    id: 22,
-    name: PermissionGroupName.EQ,
-    type: AccountTypeEnum.OPERATOR,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 23,
     name: PermissionGroupName.EQ,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // NCTRC
   {
     id: 24,
     name: PermissionGroupName.NCTRC_TRANINING_COURSE,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 25,
     name: PermissionGroupName.NCTRC_MATRIX_CRITERIA,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 26,
     name: PermissionGroupName.NCTRC_AREA_OF_SPECIALIZATION,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   // SPECIAL PERMISSION
   {
     id: 27,
     name: PermissionGroupName.SPECIAL_PERMISSION,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   // ROLE
   // {
@@ -168,102 +116,90 @@ export const permissionGroups = [
   {
     id: 30,
     name: PermissionGroupName.ROLE_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   //ACCOUNTS
   {
     id: 31,
     name: PermissionGroupName.INDIVIDUAL_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 32,
     name: PermissionGroupName.COMPANY_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 33,
     name: PermissionGroupName.OPERATOR_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 34,
     name: PermissionGroupName.NCDMB_STAFF,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
-
-  // NCEC
-  // {
-  //   id: 35,
-  //   name: PermissionGroupName.NCEC,
-  //   type: AccountTypeEnum.COMPANY,
-  // },
-  // {
-  //   id: 36,
-  //   name: PermissionGroupName.NCEC,
-  //   type: AccountTypeEnum.OPERATOR,
-  // },
   {
     id: 37,
     name: PermissionGroupName.NCEC,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // BASE RECORD
   {
     id: 38,
     name: PermissionGroupName.BASE_RECORD_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // DOCUMENT
   {
     id: 39,
     name: PermissionGroupName.DOCUMENT_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // WHISTLE BLOWER
   {
     id: 40,
     name: PermissionGroupName.WHISTLE_BLOWER_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // DOCUMENT
   {
     id: 41,
     name: PermissionGroupName.GUIDELINES,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // FAQS
   {
     id: 42,
     name: PermissionGroupName.FAQ_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // COR
   {
     id: 43,
     name: PermissionGroupName.COR,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // AUDIT LOGS
   {
     id: 44,
     name: PermissionGroupName.AUDIT_LOG,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // NCDF
   {
     id: 51,
     name: PermissionGroupName.PAYMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 
   // E MARKET
@@ -271,31 +207,31 @@ export const permissionGroups = [
   {
     id: 54,
     name: PermissionGroupName.SERVICE_CODE,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 55,
     name: PermissionGroupName.TENDER,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 56,
     name: PermissionGroupName.SUBSCRIPTION,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 57,
     name: PermissionGroupName.SETTINGS,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 58,
     name: PermissionGroupName.FAQ_MANAGEMENT,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
   {
     id: 59,
     name: PermissionGroupName.NEWS,
-    type: AccountTypeEnum.AGENCY,
+    type: AccountTypeEnum.ADMIN,
   },
 ];

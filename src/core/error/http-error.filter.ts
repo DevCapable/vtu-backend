@@ -9,8 +9,9 @@ import {
 import * as Sentry from '@sentry/nestjs';
 import { ExceptionHelper } from './helper';
 import { ErrorMessageEnum } from './error-message.enum';
-import { LoggerService } from '../../logger/logger.service';
+// import { LoggerService } from '../../logger/logger.service';
 import { CurrentUserData } from '@app/iam/interfaces';
+import { LoggerService } from '@app/logger';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {

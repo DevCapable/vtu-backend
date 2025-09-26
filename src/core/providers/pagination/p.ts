@@ -7,7 +7,7 @@ export const paginationFormat = ({
   page,
   route,
 }): PageDto => {
-  const total_pages =
+  const total_pages: any =
     total_items !== undefined ? Math.ceil(total_items / limit) : undefined;
   // const hasFirstPage = route;
   const has_previous_page = route && page > 1;

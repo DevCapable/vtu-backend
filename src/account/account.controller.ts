@@ -6,11 +6,11 @@ import {
   Patch,
   Param,
   UseInterceptors,
-  Req,
+  // Req,
 } from '@nestjs/common';
 import { AccountService } from './account.service';
-import { CreateAccountDto } from './dto/create-account.dto';
-import { UpdateAccountDto } from './dto/update-account.dto';
+import { CreateAccountDto } from '@app/account/dto';
+import { UpdateAccountDto } from '@app/account/dto';
 import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { AccountTypeEnum } from './enums';
 import { ApiFilterPagination } from '../core/decorators/api-filter-pagination.decorator';
@@ -22,11 +22,8 @@ import {
   HandlerAction,
 } from './pipes/account-validation.pipe';
 import { Accounts } from './decorators/accounts.decorator';
-import { AuditLogInterceptor } from '@app/audit-log/interceptors/audit-log.interceptor';
-import { EntityType } from '@app/audit-log/enum';
-import { ExternalLinkOriginEnum } from '@app/iam/enum';
-import { Request } from 'express';
-import { Public } from '@app/iam/decorators';
+// import { AuditLogInterceptor } from '@app/audit-log/interceptors/audit-log.interceptor';
+// import { EntityType } from '@app/audit-log/enum';
 
 @Controller('accounts')
 @ApiTags('accounts')
@@ -40,12 +37,6 @@ export class AccountController {
     enum: [...Object.keys(AccountTypeEnum)],
   })
   @ApiFilterPagination('Get all Accounts by account type')
-  @UseInterceptors(
-    AuditLogInterceptor({
-      entityType: EntityType.ACCOUNT,
-      service: AccountService,
-    }),
-  )
   @UseInterceptors(PaginationInterceptor)
   @Get()
   async findAll(
@@ -55,15 +46,9 @@ export class AccountController {
     return await this.accountService.findAll(filterOptions, paginationOptions);
   }
 
-  @Accounts(AccountTypeEnum.AGENCY)
+  @Accounts(AccountTypeEnum.ADMIN)
   @ApiAccountCreate()
   @Post()
-  @UseInterceptors(
-    AuditLogInterceptor({
-      entityType: EntityType.ACCOUNT,
-      service: AccountService,
-    }),
-  )
   create(
     @Body(AccountValidationPipe(HandlerAction.CREATE))
     createAccountDto: CreateAccountDto,
@@ -74,47 +59,41 @@ export class AccountController {
     });
   }
 
-  @Public()
-  @ApiAccountCreate()
-  @Post('/external')
-  createExternal(
-    @Body(AccountValidationPipe(HandlerAction.CREATE))
-    createAccountDto: CreateAccountDto,
-    @Req() req: Request,
-  ) {
-    const originApp = req.get('X-Origin-Application');
-    const externalOrigin = ExternalLinkOriginEnum[originApp];
-    return this.accountService.createExternal(
-      {
-        ...createAccountDto,
-      },
-      externalOrigin,
-    );
-  }
+  // @Public()
+  // @ApiAccountCreate()
+  // @Post('/external')
+  // createExternal(
+  //   @Body(AccountValidationPipe(HandlerAction.CREATE))
+  //   createAccountDto: CreateAccountDto,
+  //   @Req() req: Request,
+  // ) {
+  //   const originApp = req.get('X-Origin-Application');
+  //   const externalOrigin = ExternalLinkOriginEnum[originApp];
+  //   return this.accountService.createExternal(
+  //     {
+  //       ...createAccountDto,
+  //     },
+  //     externalOrigin,
+  //   );
+  // }
 
-  @Accounts(AccountTypeEnum.AGENCY)
+  @Accounts(AccountTypeEnum.ADMIN)
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.accountService.findOne(+id);
   }
 
-  @Get('/:id/stats')
-  @ApiOperation({
-    summary: 'Get Account Stats',
-  })
-  async findStats(@Param('id') id: number) {
-    return await this.accountService.findStats(+id);
-  }
+  // @Get('/:id/stats')
+  // @ApiOperation({
+  //   summary: 'Get Account Stats',
+  // })
+  // async findStats(@Param('id') id: number) {
+  //   return await this.accountService.findStats(+id);
+  // }
 
-  @Accounts(AccountTypeEnum.AGENCY)
+  @Accounts(AccountTypeEnum.ADMIN)
   @ApiAccountUpdate()
   @Patch(':id')
-  @UseInterceptors(
-    AuditLogInterceptor({
-      entityType: EntityType.ACCOUNT,
-      service: AccountService,
-    }),
-  )
   update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
     return this.accountService.update(+id, updateAccountDto);
   }

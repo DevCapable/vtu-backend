@@ -20,7 +20,7 @@ export class AccountUpdateInterceptor implements NestInterceptor {
     const accountId = request.params.id;
 
     if (accountId) {
-      this.accountRepository.findById(+accountId).then((account) => {
+      this.accountRepository.findById(+accountId).then((account: any) => {
         request.body.accountType = account.type;
       });
     } else {

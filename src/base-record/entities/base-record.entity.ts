@@ -47,42 +47,29 @@ export enum BaseRecordEnum {
   DISCIPLINE_CATEGORY = 'DISCIPLINE_CATEGORY',
 }
 
-@Entity()
+@Entity('base_records') // explicit table name
 export class BaseRecord extends BaseEntity<BaseRecord> {
-  @Column({
-    type: 'varchar',
-    length: 500,
-  })
+  @Column({ type: 'varchar', length: 500 })
   name: string;
 
-  @Column({
-    type: 'varchar',
-    length: 500,
-  })
+  @Column({ type: 'varchar', length: 500 })
   type: string;
 
-  @Column('clob', {
-    nullable: true,
-  })
-  metaData?: any;
+  // Use 'text' for MySQL instead of 'clob'
+  @Column({ type: 'text', nullable: true })
+  metaData?: string;
 
-  @Column({
-    nullable: true,
-  })
+  @Column({ type: 'int', nullable: true })
   parentId?: number;
 
-  @ManyToOne(() => BaseRecord)
-  @JoinColumn({ name: 'PARENT_ID' })
-  parent: BaseRecord;
+  @ManyToOne(() => BaseRecord, { nullable: true })
+  @JoinColumn({ name: 'parentId' })
+  parent?: BaseRecord;
 
-  @Column({
-    nullable: true,
-  })
+  @Column({ type: 'varchar', length: 500, nullable: true })
   slug?: string;
 
-  @Column({
-    type: 'number',
-    default: 1,
-  })
+  // Use 'tinyint' or 'int' for MySQL; default should be number type
+  @Column({ type: 'tinyint', default: 1 })
   isActive?: number;
 }

@@ -22,11 +22,11 @@ export class AccountGuard implements CanActivate {
     }
 
     const request = context.switchToHttp().getRequest();
-    const user: CurrentUserData | undefined = request[REQUEST_USER_KEY];
+    const user: CurrentUserData | any = request[REQUEST_USER_KEY];
     const accountType = user.account.type;
     const accountId = user.account.id;
     // Append Current User AccountID to request body and query
-    if (user.account.type !== AccountTypeEnum.AGENCY) {
+    if (user.account.type !== AccountTypeEnum.ADMIN) {
       request.body['accountId'] = accountId;
       request.query['accountId'] = accountId;
       // Hack to append ID to request for updating account profile

@@ -2,8 +2,8 @@ import {
   BaseRecord,
   BaseRecordEnum,
 } from '../base-record/entities/base-record.entity';
-import ProductCategory from './raw-data/dump/e-market/product-category.dump.json';
-import Product from './raw-data/dump/e-market/product.dump.json';
+// import ProductCategory from './raw-data/dump/e-market/product-category.dump.json';
+// import Product from './raw-data/dump/e-market/product.dump.json';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -184,40 +184,6 @@ export class BaseRecordSeeder implements SeederInterface {
     });
   }
 
-  async baseRecordForProductCategory() {
-    if (await this.checkIfTypeExists(BaseRecordEnum.PRODUCT_CATEGORY)) return;
-    ProductCategory.map(async (data) => {
-      const baseRecordData = {
-        uuid: uuidv4(),
-        name: removeSpecialCharacters(data.name).toUpperCase().trim(),
-        type: data.type,
-        parentId: 0,
-      };
-      const record = this.baseRecord.create(baseRecordData);
-      await this.baseRecord.save(record);
-    });
-  }
-
-  async baseRecordForProductType() {
-    if (await this.checkIfTypeExists(BaseRecordEnum.PRODUCT)) return;
-    Product.map(async (data) => {
-      const product = await this.baseRecord.findOne({
-        where: {
-          slug: StringHelper.slugify(data.categoryName),
-        },
-      });
-
-      if (product) {
-        const record = this.baseRecord.create({
-          name: removeSpecialCharacters(data.name).toLowerCase().trim(),
-          type: BaseRecordEnum.PRODUCT,
-          parentId: product?.id,
-        });
-        await this.baseRecord.save(record);
-      }
-    });
-  }
-
   async baseRecordSkeletonForDiscipline() {
     if (await this.checkIfTypeExists(BaseRecordEnum.DISCIPLINE)) return;
     const data = await convertCSVToObject(this.csvFilePath('discipline.csv'));
@@ -240,12 +206,6 @@ export class BaseRecordSeeder implements SeederInterface {
   async seed() {
     await this.baseRecordSkeleton(BaseRecordEnum.NOT_AVAILABLE);
     await this.baseRecordSkeleton(BaseRecordEnum.BUSINESS_CATEGORY);
-    await this.baseRecordSkeleton(BaseRecordEnum.OPERATOR_CATEGORY);
-    await this.baseRecordSkeleton(BaseRecordEnum.NCRC_TYPE);
-    await this.baseRecordSkeleton(BaseRecordEnum.NCRC_CAPITALIZATION);
-    await this.baseRecordSkeleton(BaseRecordEnum.NCRC_PERSONNEL_POSITION);
-    await this.baseRecordSkeleton(BaseRecordEnum.NCRC_CATEGORY);
-    await this.baseRecordSkeleton(BaseRecordEnum.NCEC_OPERATION);
 
     if (this.configService.get('NODE_ENV') === 'production') return;
 
@@ -267,18 +227,9 @@ export class BaseRecordSeeder implements SeederInterface {
     await this.baseRecordSkeleton(BaseRecordEnum.MEASUREMENT_UNIT);
     await this.baseRecordSkeleton(BaseRecordEnum.FACILITY_TYPE);
     await this.baseRecordSkeleton(BaseRecordEnum.CURRENCY);
-    await this.baseRecordSkeleton(BaseRecordEnum.TENDER_CATEGORY);
-    await this.baseRecordSkeleton(BaseRecordEnum.EQUIPMENT_CATEGORY);
-    /*await this.baseRecordSkeleton(BaseRecordEnum.NCEC_CAPITALIZATION);
-    await this.baseRecordSkeleton(BaseRecordEnum.NCEC_SINGLE_CONTRACT_EXECUTED);
-    await this.baseRecordSkeleton(BaseRecordEnum.NCEC_YEARS_OF_INVESTMENT);*/
-    await this.baseRecordSkeleton(BaseRecordEnum.MARINE_VESSEL_TYPE);
-    await this.baseRecordSkeleton(BaseRecordEnum.TENDER_SERVICE_AREA);
     //await this.baseRecordSkeleton(BaseRecordEnum.DISCIPLINE_CATEGORY);
-    await this.baseRecordForProductCategory();
     await this.baseRecordSkeletonForLga();
     await this.baseRecordSkeletonForCourse();
-    await this.baseRecordForProductType();
     await this.baseRecordSkeletonForCertificationType();
     await this.baseRecordSkeletonForService();
     await this.baseRecordSkeletonForDiscipline();

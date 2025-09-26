@@ -19,17 +19,11 @@ export class AccountSubscriber implements EntitySubscriberInterface<Account> {
   afterLoad(entity: Account): Promise<any> | void {
     let name = '';
     switch (entity.type) {
-      case AccountTypeEnum.INDIVIDUAL:
-        name = `${entity.individual?.firstName} ${entity.individual?.lastName}`;
+      case AccountTypeEnum.CUSTOMER:
+        name = `${entity.customer?.firstName} ${entity.customer?.lastName}`;
         break;
-      case AccountTypeEnum.COMPANY:
-        name = entity.company?.name;
-        break;
-      case AccountTypeEnum.OPERATOR:
-        name = entity.operator?.name;
-        break;
-      case AccountTypeEnum.AGENCY:
-        name = `${entity.agency?.firstName} ${entity.agency?.lastName}`;
+      case AccountTypeEnum.ADMIN:
+        name = `${entity.customer?.firstName} ${entity.customer?.lastName}`;
         break;
     }
     entity.name = name;

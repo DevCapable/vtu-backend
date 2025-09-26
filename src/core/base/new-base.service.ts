@@ -1,10 +1,10 @@
-import { DeepPartial } from 'typeorm';
+import { DeepPartial, ObjectLiteral } from 'typeorm';
 import { BaseRepository } from './new-base.repository';
 
-export abstract class BaseService<T> {
+export abstract class BaseService<T extends ObjectLiteral> {
   constructor(private readonly baseRepository: BaseRepository<T>) {}
 
-  async findOne(id: number): Promise<T> {
+  async findOne(id: number): Promise<T | null> {
     return this.baseRepository.findById(id);
   }
 
@@ -30,7 +30,7 @@ export abstract class BaseService<T> {
     return this.baseRepository.create(entity);
   }
 
-  update(id, entity: T): Promise<T> {
+  update(id, entity: T): Promise<T | null> {
     return this.baseRepository.update(id, entity);
   }
 

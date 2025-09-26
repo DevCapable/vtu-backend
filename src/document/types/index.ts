@@ -31,11 +31,11 @@ export enum DocumentFormat {
   JPEG = 'JPEG',
 }
 
-export enum DocumentDomain {
-  NOGIC = 'NOGIC',
-  NCDF = 'NCDF',
-  E_MARKET = 'E_MARKET',
-}
+// export enum DocumentDomain {
+//   NOGIC = 'NOGIC',
+//   NCDF = 'NCDF',
+//   E_MARKET = 'E_MARKET',
+// }
 
 export enum CertificateType {
   NCEC = 'NCEC',

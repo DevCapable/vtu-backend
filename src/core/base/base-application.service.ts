@@ -1,6 +1,3 @@
-import { AccountTypeEnum } from '@app/account/enums';
-import { CreateReview } from '@app/review/interface';
-import { ReviewType } from '@app/review/enum/review.enum';
 import { Injectable } from '@nestjs/common';
 import { BaseRepository } from '@app/core/base/base.repository';
 import { BaseService } from '@app/core/base/base.service';
@@ -32,7 +29,7 @@ export abstract class BaseApplicationService<
     canRenew?: boolean;
   },
 > extends BaseService<T> {
-  abstract reviewType: ReviewType;
+  // abstract reviewType: ReviewType;
   dateDueFrequency: number = 2;
   dateDueDuration: string = 'YEAR';
   dateDueSubtractDays = 30;
@@ -44,7 +41,7 @@ export abstract class BaseApplicationService<
   _getDateDue(app: T): { dateDue: Date; isDue: boolean; canRenew: boolean } {
     const helper = this.applicationHelper(app);
 
-    const dateDue = helper.getExpiryDate();
+    const dateDue: any = helper.getExpiryDate();
 
     const { isDue, canRenew } = helper.getExpiryStatus();
 
@@ -75,37 +72,37 @@ export abstract class BaseApplicationService<
     return { data: mappedData, totalCount };
   }
 
-  async createReview(reviewPayload: CreateReview): Promise<CreateReview> {
-    const { reviewer } = reviewPayload;
-    const isAgency = reviewer.account.type === AccountTypeEnum.AGENCY;
+  // async createReview(reviewPayload: CreateReview): Promise<CreateReview> {
+  //   const { reviewer } = reviewPayload;
+  //   const isAgency = reviewer.account.type === AccountTypeEnum.AGENCY;
+  //
+  //   if (isAgency) {
+  //     return await this._createReviewForAgency(reviewPayload);
+  //   }
+  //
+  //   return await this._createReviewForCompany(reviewPayload);
+  // }
 
-    if (isAgency) {
-      return await this._createReviewForAgency(reviewPayload);
-    }
+  // protected abstract _createReviewForAgency(
+  //   reviewPayload: CreateReview,
+  // ): Promise<CreateReview>;
+  //
+  // protected abstract _createReviewForCompany(
+  //   reviewPayload: CreateReview,
+  // ): Promise<CreateReview>;
 
-    return await this._createReviewForCompany(reviewPayload);
-  }
-
-  protected abstract _createReviewForAgency(
-    reviewPayload: CreateReview,
-  ): Promise<CreateReview>;
-
-  protected abstract _createReviewForCompany(
-    reviewPayload: CreateReview,
-  ): Promise<CreateReview>;
-
-  async updateReview(id: any, data: any): Promise<T> {
+  async updateReview(id: any, data: any): Promise<T | null> {
     const { status, wfCaseId } = data;
     // if the application is approved and the id is present
     if (!wfCaseId)
-      throw new CustomValidationException({ type: 'wfCaseId is required' });
+      throw new CustomValidationException({ type: ['wfCaseId is required'] });
 
     if (status === AppStatus.PENDING) {
       data.dateSubmitted = new Date();
     }
 
     if (status === AppStatus.APPROVED) {
-      const app = await this.repository.findFirst({ wfCaseId });
+      const app: any = await this.repository.findFirst({ wfCaseId });
 
       if (app?.status === AppStatus.APPROVED) {
         throw new CustomInternalServerException(
@@ -120,16 +117,16 @@ export abstract class BaseApplicationService<
     return this.repository.update(id, data);
   }
 
-  async createRenewal(app: DeepPartial<T>): Promise<T> {
+  async createRenewal(app: DeepPartial<T>): Promise<T | null> {
     const newEntity = this._prepareRenewal(app);
-    const newApp = await this.create(newEntity as T);
+    const newApp: any = await this.create(newEntity as T);
 
     return this.findOne(newApp.id);
   }
 
-  async update(id, entity: DeepPartial<T>): Promise<T> {
+  async update(id, entity: DeepPartial<T>): Promise<T | null> {
     const app = await this.findOne(id);
-    const { status, canRenew } = app;
+    const { status, canRenew }: any = app;
 
     if ([AppStatus.APPROVED].includes(status) && !canRenew) {
       throw new CustomInternalServerException('Application cannot be updated');
@@ -148,7 +145,7 @@ export abstract class BaseApplicationService<
 
   async findOne(id: number): Promise<T> {
     // TODO - remove queries for parent and child on applications with request i.e. expatriate quota
-    const app = await this.repository.findById(id);
+    const app: any = await this.repository.findById(id);
     return await this._loadWithAdditionalData(app);
   }
 
@@ -160,12 +157,12 @@ export abstract class BaseApplicationService<
     return await helper.transformData(this.repository);
   }
 
-  async _generateCertificateNumber(entity: T): Promise<string> {
+  async _generateCertificateNumber(entity: T): Promise<string | null> {
     if (!entity.wfCaseId) return null;
 
     const total = await this.repository.count({ status: AppStatus.APPROVED });
 
-    return `NCDMB-${this.reviewType}-${addTrailingZeros(total + 1, 4)}`;
+    return `NCDMB-$-${addTrailingZeros(total + 1, 4)}`;
   }
 
   protected _prepareRenewal(app: DeepPartial<T>) {
@@ -190,7 +187,7 @@ export abstract class BaseApplicationService<
   }
 
   async validateCreateDocumentFile(entityId: number) {
-    const entity = await this.findOne(entityId);
+    const entity: any = await this.findOne(entityId);
 
     if (
       ![AppStatus.NOT_SUBMITTED, AppStatus.REJECTED].includes(entity.status)

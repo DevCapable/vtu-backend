@@ -5,9 +5,6 @@ import papa, { parse } from 'papaparse';
 import * as XLSX from 'xlsx';
 import { performance } from 'perf_hooks';
 import { CustomUnprocessableEntityException } from '../error';
-import { LoggerService } from '@app/logger';
-
-let loggerService: LoggerService;
 
 export async function* readCsvStream(
   path,
@@ -58,7 +55,7 @@ export async function* readCsvStream(
   // Calculate streaming time
   const endTime = performance.now();
   const streamingTime = endTime - startTime;
-  loggerService.log(`Streaming time: ${streamingTime} milliseconds`);
+  // loggerService.log(`Streaming time: ${streamingTime} milliseconds`);
 }
 
 export const convertCSVToObject = async (filePath) => {
@@ -87,7 +84,7 @@ export const convertKeysToCamelCase = async (
     }
     return camelCaseObj;
   });
-  loggerService.log(camelCaseArray[0]);
+  // loggerService.log(camelCaseArray[0]);
   return camelCaseArray;
 };
 
@@ -128,7 +125,7 @@ const parseValueOfType = (value, type) => {
       }
       return { value: value };
 
-    case Date:
+    case Date: {
       const error = 'Invalid date, please enter a date in format: dd/mm/yyyy';
       const dateArray = value.split('/');
       if (dateArray.length !== 3) return { error };
@@ -146,6 +143,7 @@ const parseValueOfType = (value, type) => {
       if (!date.isValid()) return { error };
 
       return { value: date.format() };
+    }
 
     default:
       throw new CustomUnprocessableEntityException(
@@ -153,10 +151,15 @@ const parseValueOfType = (value, type) => {
       );
   }
 };
-
+type FailedRow = {
+  row: number;
+  column?: string;
+  error: string;
+  value?: any;
+};
 export const csvProcessing = (csvFile: any, csvSchema: any) => {
-  const failedRows = [];
-  const formattedExcelData = [];
+  const failedRows: FailedRow[] = [];
+  const formattedExcelData: any = [];
 
   try {
     if (!csvSchema) {
@@ -165,13 +168,14 @@ export const csvProcessing = (csvFile: any, csvSchema: any) => {
         error:
           'Schema Required, Read the documentation on how to define a schema',
       });
+
       return { total: 0, failedRows, payload: [] };
     }
 
     const wb = XLSX.read(csvFile, { type: 'buffer' });
 
     // Convert excel to csv
-    const csvData = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {
+    const csvData: any = XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]], {
       raw: false,
       blankrows: false,
     });
@@ -200,7 +204,7 @@ export const csvProcessing = (csvFile: any, csvSchema: any) => {
       return { total: 0, failedRows, payload: [] };
     }
 
-    csvData.forEach((data, index) => {
+    csvData.forEach((data: any, index) => {
       const row: any = {};
       let rowHasError = false;
 
@@ -248,7 +252,7 @@ export const csvProcessing = (csvFile: any, csvSchema: any) => {
   }
 };
 
-export async function* generate(arrayObj) {
+export function* generate(arrayObj) {
   for (const item of arrayObj) {
     yield item;
   }

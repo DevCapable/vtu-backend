@@ -9,13 +9,12 @@ const configService = new ConfigService();
 
 export const dataSourceOptions: DataSourceOptions = {
   migrationsTableName: 'MIGRATIONS',
-  type: 'oracle',
-  host: configService.getOrThrow('ORACLE_HOST'),
-  database: configService.getOrThrow('ORACLE_DATABASE'),
-  port: configService.getOrThrow('ORACLE_PORT'),
-  sid: configService.getOrThrow('ORACLE_SID'),
-  username: configService.getOrThrow('ORACLE_USERNAME'),
-  password: configService.getOrThrow('ORACLE_PASSWORD'),
+  type: 'mysql',
+  host: configService.getOrThrow('MYSQL_HOST'),
+  database: configService.getOrThrow('MYSQL_DATABASE'),
+  port: configService.getOrThrow('MYSQL_PORT'),
+  username: configService.getOrThrow('MYSQL_USERNAME'),
+  password: configService.getOrThrow('MYSQL_PASSWORD'),
   logging: true,
   extra: {
     queueMax: 100000,
